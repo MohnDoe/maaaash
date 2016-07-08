@@ -64,9 +64,9 @@ module.exports = function(sequelize, DataTypes) {
 		classMethods: {
 			associate: function(models) {
 				Channel.belongsToMany(models.user, {
-					as: 'subcribers',
+					// as: 'subcribers',
 					through: "is_sub",
-					foreign_key: 'channel_id'
+					// foreign_key: 'channel_id'
 				})
 			},
 		},
