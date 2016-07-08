@@ -10,11 +10,11 @@ module.exports = function(sequelize, DataTypes) {
 			unique: true
 		},
 		view_count: {
-			type: DataTypes.INTEGER,
+			type: DataTypes.BIGINT,
 			defaultValue: 0
 		},
 		subscriber_count: {
-			type: DataTypes.INTEGER,
+			type: DataTypes.BIGINT,
 			defaultValue: 0
 		},
 		elo_points: {
@@ -26,7 +26,7 @@ module.exports = function(sequelize, DataTypes) {
 			defaultValue: false
 		},
 		video_count: {
-			type: DataTypes.INTEGER,
+			type: DataTypes.BIGINT,
 			defaultValue: 0
 		},
 		thumbnail_url: {

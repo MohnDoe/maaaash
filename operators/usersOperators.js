@@ -4,6 +4,8 @@ var Models = require('../models');
 
 var Config = require('../config/config');
 
+var channelsOperators = require('./channelsOperators');
+
 var Google = require('googleapis');
 var Youtube = Google.youtube('v3');
 
@@ -68,13 +70,15 @@ function getChannelsSubedBulk(user, nextPageToken) {
 						reject(err);
 					}
 					_.forEach(data.items, function(value, key) {
+						var channel_id = value.id;
+						console.log(channel_id);
 						var channelInfos = {
 							snippet: value['snippet'],
 							statistics: value['statistics']
 						};
 						var channelSnippet = value['snippet'];
 						var channel = {
-							id: data.id,
+							id: channel_id,
 							name: channelInfos.snippet.title,
 							description: channelInfos.snippet.description,
 							thumbnail_url: channelInfos.snippet.thumbnails.high.url,
@@ -123,16 +127,25 @@ function getAllChannelsSubed(user, allChannels, nextPageToken) {
 	});
 }
 
-function saveChannels(user, channels) {
-	_.forEach(channels, function(channel, key) {
-		Ops.channelsOperators.findOrCreateChannel(channel)
-			.then(function(_channel) {
-				_channel.addUser(user);
-			});
-	})
+function saveChannels(user) {
+
+	return new Promise(function(resolve, reject) {
+		return getAllChannelsSubed(user).then(function(channels) {
+			_.forEach(channels, function(channel, key) {
+				channelsOperators.findOrCreateChannel(channel)
+					.then(function(_channel) {
+						_channel.addUser(user);
+					});
+			})
+			resolve(user);
+		}).catch(function(err) {
+			reject(err);
+		})
+	});
 }
 
 module.exports = {
 	getChannelsSubedBulk: getChannelsSubedBulk,
 	getAllChannelsSubed: getAllChannelsSubed,
+	saveChannels: saveChannels,
 }

@@ -15,15 +15,13 @@ router.get('/youtube/callback',
 	}),
 	function(req, res) {
 		// Successful authentication
-		Ops.usersOperators.getAllChannelsSubed(req.user)
-			.then(function(channels) {
-				// console.log("ALL DONE BB")
-				console.log(channels);
-			}).catch(function(err) {
-				// console.log("ERROR");
-				console.log(err.message);
-			})
 		res.json(req.user);
+		Ops.usersOperators.saveChannels(req.user).then(function(user) {
+			console.log("All channels saved bro!");
+		}).catch(function(err) {
+			console.log("Error!");
+			console.log(err.message);
+		})
 	});
 
 module.exports = router;
