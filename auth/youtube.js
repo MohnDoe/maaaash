@@ -82,27 +82,59 @@ passport.use(new YoutubeV3Strategy({
 		// })
 
 		Youtube.subscriptions.list({
-			part: "snippet",
+			part: "snippet", // cost 2 units
 			mine: true,
 			maxResults: 50
 		}, function(err, data) {
+			var ids = '';
+			var channels = [];
 			_.forEach(data.items, function(value, key) {
 				var channel;
 				var channelSnippet = value['snippet'];
-
 				channel = {
 					name: channelSnippet.title,
 					description: channelSnippet.description,
 					id: channelSnippet.resourceId.channelId,
 					thumbnail_url: channelSnippet.thumbnails.high.url,
 				}
-				console.log(channel);
+				channels[channel.id] = channel;
+				if (ids == '') {
+					ids = channel.id;
+				} else {
+					ids += ',' + channel.id;
+				}
+				// console.log(channel);
 
-			Ops.channelsOperators.findOrCreateChannel(channel)
-				.then(function(channel) {
-					console.log(channel);
+
+
+			});
+
+			Youtube.channels.list({
+				part: 'statistics, snippet', // 2 + 2
+				id: ids
+			}, function(err, data) {
+				_.forEach(data.items, function(value, key) {
+					var moreChannelInfos = {
+						snippet: value['snippet'],
+						statistics: value['statistics']
+					};
+					channels[value.id].custom_url = moreChannelInfos.snippet.customUrl;
+					channels[value.id].published_at = moreChannelInfos.snippet.publishedAt;
+					channels[value.id].lang = moreChannelInfos.snippet.defaultlLanguage;
+					channels[value.id].country = moreChannelInfos.snippet.country;
+					channels[value.id].view_count = moreChannelInfos.statistics.viewCount;
+					channels[value.id].subscriber_count = moreChannelInfos.statistics.subscriberCount;
+					channels[value.id].hidden_subscriber_count = moreChannelInfos.statistics.hiddenSubscriberCount;
+					channels[value.id].video_count = moreChannelInfos.statistics.videoCount;
+
+
+					// add one by one
+					Ops.channelsOperators.findOrCreateChannel(channels[value.id])
+						.then(function(channel) {
+							console.log(channel);
+						});
 				});
-			})
+			});
 		})
 
 	}
