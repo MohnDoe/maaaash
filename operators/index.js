@@ -1,3 +1,4 @@
 module.exports = {
-	'channelsOperators': require('./channelsOperators')
+	'channelsOperators': require('./channelsOperators'),
+	'usersOperators': require('./usersOperators')
 }
