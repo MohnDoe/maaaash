@@ -2,7 +2,8 @@ var Hashids = require('hashids'),
 	Config = require('../config/config'),
 	_ = require('lodash');
 
-var hashids = new Hashids(Config.hashids.hash_secret.vote, 32);
+var hashids = new Hashids(Config.hashids.hash_secret.vote, Config.hashids.size.vote);
+var hashids_channel = new Hashids(Config.hashids.hash_secret.channel, Config.hashids.size.channel);
 
 module.exports = function(sequelize, DataTypes) {
 	var Vote = sequelize.define('vote', {
@@ -47,7 +48,7 @@ module.exports = function(sequelize, DataTypes) {
 						id: vote.id
 					}
 				});
-				console.log('HASH_id : ' + vote.hash_id);
+				// console.log('HASH_id : ' + vote.hash_id);
 			}
 		},
 		classMethods: {
@@ -69,15 +70,26 @@ module.exports = function(sequelize, DataTypes) {
 					as: 'Looser',
 					foreignKey: 'looser_id'
 				})
-			},
+			}
+		},
+		getterMethods: {
+			identifier: function() {
+				return this.generateChannelHashID(this.channel_1_id) + '.' +
+					this.generateChannelHashID(this.channel_2_id) + '#' +
+					this.hash_id
+			}
 		},
 		instanceMethods: {
 			toJSON: function() {
 				var values = this.dataValues;
+				// values.push(this.identifier);
 				return values;
 			},
 			generateHashID: function() {
 				return hashids.encode(this.id);
+			},
+			generateChannelHashID: function(channel_id) {
+				return hashids_channel.encode(channel_id);
 			},
 			setChannel1: function(channel) {
 				this.channel_1_id = channel.id;

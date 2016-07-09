@@ -12,7 +12,7 @@ router.get('/youtube', passportYoutube.authenticate('youtube'));
 
 router.get('/youtube/callback',
 	passportYoutube.authenticate('youtube', {
-	failureRedirect: '/login'
+		failureRedirect: '/login'
 	}),
 	function(req, res) {
 		// Successful authentication
