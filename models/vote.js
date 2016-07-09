@@ -32,21 +32,22 @@ module.exports = function(sequelize, DataTypes) {
 		},
 		hash_id: {
 			type: DataTypes.STRING(32),
-			allowNull: false
+			unique: true
 		}
 	}, {
 		paranoid: true,
 		underscored: true,
 		hooks: {
-			beforeCreate: function(vote) {
-				vote.hash_id = vote.generateHashID();
-				this.update({
-					hash_id: vote.hash_id
+			afterCreate: function(vote) {
+				// vote.hash_id = vote.generateHashID();
+				vote.update({
+					hash_id: vote.generateHashID()
 				}, {
 					where: {
 						id: vote.id
 					}
 				});
+				console.log('HASH_id : ' + vote.hash_id);
 			}
 		},
 		classMethods: {
@@ -81,28 +82,22 @@ module.exports = function(sequelize, DataTypes) {
 			setChannel1: function(channel) {
 				this.channel_1_id = channel.id;
 				this.channel_1_elo_before = channel.elo_points;
-				this.save();
 			},
 			setChannel2: function(channel) {
 				this.channel_2_id = channel.id;
 				this.channel_2_elo_before = channel.elo_points;
-				this.save();
 			},
 			setWinner: function(channel) {
 				this.winner_id = channel.id;
-				this.save();
 			},
 			setLooser: function(channel) {
 				this.looser_id = channel.id;
-				this.save();
 			},
 			updateChannel1: function(channel) {
 				this.channel_1_elo_after = channel.elo_points;
-				this.save();
 			},
 			updateChannel2: function(channel) {
 				this.channel_2_elo_after = channel.elo_points;
-				this.save();
 			},
 			complete: function(is_draw, channel_1, channel_2, channel_winner, channel_looser) {
 				this.is_completed = true;
@@ -116,7 +111,6 @@ module.exports = function(sequelize, DataTypes) {
 					this.setLooser(channel_looser);
 				}
 
-				this.save();
 			}
 
 		}

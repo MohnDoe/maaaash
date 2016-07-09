@@ -18,19 +18,13 @@ router.get('/youtube/callback',
 		// Successful authentication
 		res.json(req.user);
 		Ops.usersOperators.saveChannels(req.user).then(function(user) {
-			Ops.usersOperators.getTwoRandomSubscriptions(user).then(function(channels) {
-				console.log('RANDOM CHANNELS ARE HERE :');
-				// console.log('size :' + channels);
-				console.log(channels.dataValues);
-			// _.forEach(channels, function(value, key) {
-			// 		console.log(value.id);
-			// 	})
-					// console.log(channels);
-					// exit();
-			}).catch(function(err) {
-				console.log(err.message);
-				// exit();
-			})
+			Ops.votesOperators.generateVote(user)
+				.then(function(vote) {
+					console.log(vote.dataValues);
+				})
+				.catch(function(err) {
+					console.log(err.message);
+				})
 		}).catch(function(err) {
 			console.log("Error!");
 			console.log(err.message);

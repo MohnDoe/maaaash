@@ -67,7 +67,7 @@ function getChannelsSubedBulk(user, nextPageToken) {
 					}
 					_.forEach(data.items, function(value, key) {
 						var channel_id = value.id;
-						console.log(channel_id);
+						// console.log(channel_id);
 						var channelInfos = {
 							snippet: value['snippet'],
 							statistics: value['statistics']
@@ -109,7 +109,7 @@ function getAllChannelsSubed(user, allChannels, nextPageToken) {
 				var _channels = channels;
 				allChannels = allChannels.concat(_channels.items);
 
-				if (_channels.nextPageToken && false) {
+				if (_channels.nextPageToken && false) { // todo get this false outta here dude
 					console.log('# channels so far : ' + allChannels.length);
 					return getAllChannelsSubed(user, allChannels, _channels.nextPageToken).then(resolve);
 				} else {
@@ -152,15 +152,20 @@ function saveChannels(user) {
 function getTwoRandomSubscriptions(user) {
 	console.log("GETTING RANDOM CHANNELS FOR USER : " + user.id);
 	return new Promise(function(resolve, reject) {
-		Models.channel.findOne({
-					order: 'RANDOM()',
+		Models.channel.findAll({
+			order: [
+				[Models.Sequelize.fn('RANDOM')]
+			],
+			limit: 2,
 			include: [{
 				model: Models.user,
 				as: 'subscribers',
 				where: {
 					id: user.id
 				},
-				// order: 'RANDOM()',
+				order: [
+					[Models.Sequelize.fn('RANDOM')]
+				],
 			}]
 		}).then(function(channels) {
 			console.log("END GETTING RANDOM CHANNELS");
