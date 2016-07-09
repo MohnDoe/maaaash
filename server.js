@@ -12,9 +12,11 @@ var Config = require('./config/config');
 
 var Models = require('./models');
 
+var Ops = require('./operators');
+
 var app = express();
 
-//app.use(morgan('dev'));
+app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
 	extended: true
@@ -44,11 +46,11 @@ Models.sequelize.sync({
 	force: true
 }).then(function() {
 	app.listen(3000, function() {
-		Models.user.create({
-			username: "jondoe",
-			password: 'jondoe',
-			email: 'jondoe@gmail.com'
-		});
-		console.log('Quotrs app listening on port 3000!');
+		// Models.user.create({
+		// 	username: "jondoe",
+		// 	password: 'jondoe',
+		// 	email: 'jondoe@gmail.com'
+		// });
+		console.log('Yniminy app listening on port 3000!');
 	});
 });

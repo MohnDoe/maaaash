@@ -5,7 +5,6 @@ var Models = require('../models');
 
 var Config = require('../config/config');
 
-var channelsOperators = require('./channelsOperators');
 
 var Google = require('googleapis');
 var Youtube = Google.youtube('v3');
@@ -16,6 +15,7 @@ var oauth2Client = new OAuth2(Config.auth.youtube.clientID, Config.auth.youtube.
 function getChannelsSubedBulk(user, nextPageToken) {
 
 	return new Promise(function(resolve, reject) {
+		// TODO PROMISIFY THIS
 		oauth2Client.setCredentials({
 			access_token: user.access_token_youtube,
 			refresh_token: user.refresh_token_youtube
@@ -129,6 +129,8 @@ function saveChannels(user) {
 		return getAllChannelsSubed(user).then(function(channels) {
 			var pendingChannels = channels.length;
 			_.forEach(channels, function(channel, key) {
+
+					var channelsOperators = require('./channelsOperators');
 					channelsOperators.findOrCreateChannel(channel)
 						.then(function(_channel) {
 							// _channel.addSubscriber(user);
@@ -152,7 +154,7 @@ function saveChannels(user) {
 function getTwoRandomSubscriptions(user) {
 	console.log("GETTING RANDOM CHANNELS FOR USER : " + user.id);
 	return new Promise(function(resolve, reject) {
-		Models.channel.findAll({
+		return Models.channel.findAll({
 			order: [
 				[Models.Sequelize.fn('RANDOM')]
 			],
@@ -176,9 +178,47 @@ function getTwoRandomSubscriptions(user) {
 	});
 }
 
+function getVote(user) {
+	console.log("GETTING A VOTE FOR USER #" + user.id);
+	return new Promise(function(resolve, reject) {
+		return getNotCompletedVote(user)
+			.then(function(vote) {
+				if (vote) {
+					return vote;
+				} else {
+					var votesOperators = require('./votesOperators');
+					return votesOperators.generateVote(user);
+				}
+			}).then(function(_vote) {
+				resolve(_vote);
+			}).catch(function(err) {
+				reject(err);
+			})
+	});
+}
+
+function getNotCompletedVote(user) {
+	console.log("GETTING NOT COMPLETED VOTE FOR USER #" + user.id);
+	return new Promise(function(resolve, reject) {
+		return Models.vote.findOne({
+			include: [{
+				model: Models.user,
+				where: {
+					id: user.id
+				}
+			}]
+		}).then(function(vote) {
+			resolve(vote);
+		}).catch(function(err) {
+			reject(err);
+		})
+	});
+}
+
 module.exports = {
 	getChannelsSubedBulk: getChannelsSubedBulk,
 	getAllChannelsSubed: getAllChannelsSubed,
 	saveChannels: saveChannels,
-	getTwoRandomSubscriptions: getTwoRandomSubscriptions
+	getTwoRandomSubscriptions: getTwoRandomSubscriptions,
+	getVote: getVote
 }

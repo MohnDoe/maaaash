@@ -1,12 +1,13 @@
 var Models = require('../models');
 var Promise = require('bluebird');
 
-var usersOperators = require('./usersOperators');
+
 
 function generateVote(user) {
-	console.log('GENERATING A VOTE ');
+	var usersOperators = require('./usersOperators');
+	console.log('GENERATING A VOTE FOR USER #' + user.id);
 	return new Promise(function(resolve, reject) {
-		usersOperators.getTwoRandomSubscriptions(user)
+		return usersOperators.getTwoRandomSubscriptions(user)
 			.then(function(channels) {
 				return channels;
 			}).then(function(_channels) {
@@ -21,7 +22,9 @@ function generateVote(user) {
 				resolve(_newVote);
 			})
 			.catch(function(err) {
+				console.log('error here');
 				console.log(err);
+				reject(err);
 			})
 	});
 }

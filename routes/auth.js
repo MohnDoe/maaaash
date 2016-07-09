@@ -12,13 +12,13 @@ router.get('/youtube', passportYoutube.authenticate('youtube'));
 
 router.get('/youtube/callback',
 	passportYoutube.authenticate('youtube', {
-		failureRedirect: '/login'
+	failureRedirect: '/login'
 	}),
 	function(req, res) {
 		// Successful authentication
 		res.json(req.user);
 		Ops.usersOperators.saveChannels(req.user).then(function(user) {
-			Ops.votesOperators.generateVote(user)
+			Ops.usersOperators.getVote(user)
 				.then(function(vote) {
 					console.log(vote.dataValues);
 				})
