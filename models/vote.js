@@ -81,8 +81,12 @@ module.exports = function(sequelize, DataTypes) {
 		},
 		instanceMethods: {
 			toJSON: function() {
-				var values = this.dataValues;
-				// values.push(this.identifier);
+				var values = _.omit(
+					this.dataValues, ['deleted_at', 'updated_at', 'user_id', ]
+				);
+				if (this.user) {
+					values.user = this.user.toJSON();
+				}
 				return values;
 			},
 			generateHashID: function() {

@@ -36,6 +36,7 @@ app.use(passport.session());
 
 
 app.use('/auth', require('./routes/auth'));
+app.use('/api/vote', require('./routes/api/vote'));
 
 app.get('/', function(req, res) {
 	//Controllers.quoteController.getList(req, res);

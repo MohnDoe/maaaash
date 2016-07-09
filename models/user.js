@@ -86,7 +86,20 @@ module.exports = function(sequelize, DataTypes) {
                 return bcrypt.compareSync(password, this.password);
             },
             toJSON: function() {
-                var values = _.omit(this.dataValues, ['passwordResetToken', 'email', 'password', 'created_at', 'updated_at', 'deleted_at', 'access_token_twitter', 'access_token_facebook', 'access_token_genius']);
+                var values = _.omit(
+                    this.dataValues, [
+                        'passwordResetToken',
+                        'plusgoogle_email',
+                        'password_reset_token',
+                        'created_at',
+                        'updated_at',
+                        'deleted_at',
+                        'access_token_youtube',
+                        'refresh_token_youtube',
+                        'plusgoogle_id',
+                        'youtube_id'
+                    ]
+                );
                 return values;
             }
         }

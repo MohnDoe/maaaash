@@ -1,3 +1,3 @@
 module.exports = {
-	'quotesController': require('./quotesController'),
+	'votesController': require('./votesController'),
 }
