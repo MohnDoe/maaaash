@@ -72,7 +72,9 @@ module.exports = function(sequelize, DataTypes) {
 		},
 		instanceMethods: {
 			toJSON: function() {
-				var values = this.dataValues;
+				var values = _.omit(
+					this.dataValues, ['deleted_at', 'updated_at', 'created_at']
+				);
 				return values;
 			}
 		}

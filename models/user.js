@@ -97,7 +97,8 @@ module.exports = function(sequelize, DataTypes) {
                         'access_token_youtube',
                         'refresh_token_youtube',
                         'plusgoogle_id',
-                        'youtube_id'
+                        'youtube_id',
+                        'password'
                     ]
                 );
                 return values;

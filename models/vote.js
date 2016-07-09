@@ -15,16 +15,16 @@ module.exports = function(sequelize, DataTypes) {
 			type: DataTypes.DATE,
 			defaultValue: null
 		},
-		channel_1_elo_before: {
+		channel1_elo_before: {
 			type: DataTypes.INTEGER
 		},
-		channel_2_elo_before: {
+		channel2_elo_before: {
 			type: DataTypes.INTEGER
 		},
-		channel_1_elo_after: {
+		channel1_elo_after: {
 			type: DataTypes.INTEGER
 		},
-		channel_2_elo_after: {
+		channel2_elo_after: {
 			type: DataTypes.INTEGER
 		},
 		is_completed: {
@@ -55,12 +55,14 @@ module.exports = function(sequelize, DataTypes) {
 			associate: function(models) {
 				Vote.belongsTo(models.user);
 				Vote.belongsTo(models.channel, {
-					as: 'Channel_1',
-					foreignKey: 'channel_1_id'
+					as: 'Channel1',
+					foreignKey: 'channel1_id',
+					constraints: false
 				});
 				Vote.belongsTo(models.channel, {
-					as: 'Channel_2',
-					foreignKey: 'channel_2_id'
+					as: 'Channel2',
+					foreignKey: 'channel2_id',
+					constraints: false
 				});
 				Vote.belongsTo(models.channel, {
 					as: 'Winner',
@@ -82,10 +84,22 @@ module.exports = function(sequelize, DataTypes) {
 		instanceMethods: {
 			toJSON: function() {
 				var values = _.omit(
-					this.dataValues, ['deleted_at', 'updated_at', 'user_id', ]
+					this.dataValues, ['deleted_at', 'updated_at', 'user_id']
 				);
 				if (this.user) {
 					values.user = this.user.toJSON();
+				}
+				if (this.Channel1) {
+					values.Channel1 = this.Channel1.toJSON();
+				}
+				if (this.channel2) {
+					values.channel2 = this.channel2.toJSON();
+				}
+				if (this.winner) {
+					values.winner = this.winner.toJSON();
+				}
+				if (this.looser) {
+					values.looser = this.looser.toJSON();
 				}
 				return values;
 			},
@@ -95,26 +109,26 @@ module.exports = function(sequelize, DataTypes) {
 			generateChannelHashID: function(channel_id) {
 				return hashids_channel.encode(channel_id);
 			},
-			setChannel1: function(channel) {
-				this.channel_1_id = channel.id;
-				this.channel_1_elo_before = channel.elo_points;
-			},
-			setChannel2: function(channel) {
-				this.channel_2_id = channel.id;
-				this.channel_2_elo_before = channel.elo_points;
-			},
-			setWinner: function(channel) {
-				this.winner_id = channel.id;
-			},
-			setLooser: function(channel) {
-				this.looser_id = channel.id;
-			},
-			updateChannel1: function(channel) {
-				this.channel_1_elo_after = channel.elo_points;
-			},
-			updateChannel2: function(channel) {
-				this.channel_2_elo_after = channel.elo_points;
-			},
+			// setChannel1: function(channel) {
+			// 	this.channel_1_id = channel.id;
+			// 	this.channel_1_elo_before = channel.elo_points;
+			// },
+			// setChannel2: function(channel) {
+			// 	this.channel_2_id = channel.id;
+			// 	this.channel_2_elo_before = channel.elo_points;
+			// },
+			// setWinner: function(channel) {
+			// 	this.winner_id = channel.id;
+			// },
+			// setLooser: function(channel) {
+			// 	this.looser_id = channel.id;
+			// },
+			// updateChannel1: function(channel) {
+			// 	this.channel_1_elo_after = channel.elo_points;
+			// },
+			// updateChannel2: function(channel) {
+			// 	this.channel_2_elo_after = channel.elo_points;
+			// },
 			complete: function(is_draw, channel_1, channel_2, channel_winner, channel_looser) {
 				this.is_completed = true;
 				this.completed_at = new Date();

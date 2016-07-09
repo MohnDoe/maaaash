@@ -13,7 +13,7 @@ function getVote(req, res, next) {
 				data: {
 					vote: vote
 				}
-			})
+			});
 		}).catch(function(err) {
 			res.status(500).json({
 				status: 'error',
