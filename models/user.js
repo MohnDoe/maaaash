@@ -72,9 +72,9 @@ module.exports = function(sequelize, DataTypes) {
 
                 // a user is subed to many channels
                 User.belongsToMany(models.channel, {
-                    // as: 'subscriptions',
+                    as: 'subscriptions',
                     through: 'is_sub',
-                    // foreign_key: 'user_id'
+                    //foreign_key: 'user_id'
                 });
             },
             generateHash: function(password) {

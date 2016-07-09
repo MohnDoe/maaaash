@@ -1,4 +1,5 @@
 module.exports = {
 	'channelsOperators': require('./channelsOperators'),
-	'usersOperators': require('./usersOperators')
+	'usersOperators': require('./usersOperators'),
+	'votesOperators': require('./votesOperators'),
 }

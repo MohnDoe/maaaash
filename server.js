@@ -14,7 +14,7 @@ var Models = require('./models');
 
 var app = express();
 
-app.use(morgan('dev'));
+//app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
 	extended: true

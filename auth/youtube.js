@@ -24,8 +24,8 @@ passport.use(new YoutubeV3Strategy({
 		}
 	},
 	function(accessToken, refreshToken, profile, done) {
-		console.log(profile);
-		console.log('END PROFIL-----------');
+		// console.log(profile);
+		// console.log('END PROFIL-----------');
 		// console.log(accessToken);
 		// console.log(refreshToken);
 
@@ -48,7 +48,7 @@ passport.use(new YoutubeV3Strategy({
 
 		oauth2.userinfo.get({}, function(err, data) {
 			var userinfo = data;
-			console.log(userinfo);
+			// console.log(userinfo);
 			Models.user.findOrCreate({
 				where: {
 					youtube_id: profile.id

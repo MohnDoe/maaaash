@@ -49,6 +49,7 @@ function findOrCreateChannel(data) {
 	})
 }
 
+
 module.exports = {
 	findOrCreateChannel: findOrCreateChannel,
 	createChannel: createChannel

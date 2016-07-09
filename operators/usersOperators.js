@@ -1,5 +1,6 @@
 var Promise = require('bluebird'),
-	_ = require('lodash');
+	_ = require('lodash'),
+	Sequelize = require('sequelize');
 var Models = require('../models');
 
 var Config = require('../config/config');
@@ -11,11 +12,6 @@ var Youtube = Google.youtube('v3');
 
 var OAuth2 = Google.auth.OAuth2;
 var oauth2Client = new OAuth2(Config.auth.youtube.clientID, Config.auth.youtube.clientSecret, Config.auth.youtube.callbackURL);
-
-
-function saveAllChannels(data) {
-
-}
 
 function getChannelsSubedBulk(user, nextPageToken) {
 
@@ -105,7 +101,7 @@ function getChannelsSubedBulk(user, nextPageToken) {
 function getAllChannelsSubed(user, allChannels, nextPageToken) {
 	return new Promise(function(resolve, reject) {
 		if (!allChannels) {
-			console.log("allChannels is empty")
+			// console.log("allChannels is empty")
 			allChannels = [];
 		}
 		return getChannelsSubedBulk(user, nextPageToken)
@@ -113,7 +109,7 @@ function getAllChannelsSubed(user, allChannels, nextPageToken) {
 				var _channels = channels;
 				allChannels = allChannels.concat(_channels.items);
 
-				if (_channels.nextPageToken) {
+				if (_channels.nextPageToken && false) {
 					console.log('# channels so far : ' + allChannels.length);
 					return getAllChannelsSubed(user, allChannels, _channels.nextPageToken).then(resolve);
 				} else {
@@ -128,16 +124,47 @@ function getAllChannelsSubed(user, allChannels, nextPageToken) {
 }
 
 function saveChannels(user) {
-
+	console.log("SAVING CHANNELS FOR USER : " + user.id);
 	return new Promise(function(resolve, reject) {
 		return getAllChannelsSubed(user).then(function(channels) {
+			var pendingChannels = channels.length;
 			_.forEach(channels, function(channel, key) {
-				channelsOperators.findOrCreateChannel(channel)
-					.then(function(_channel) {
-						_channel.addUser(user);
-					});
-			})
-			resolve(user);
+					channelsOperators.findOrCreateChannel(channel)
+						.then(function(_channel) {
+							// _channel.addSubscriber(user);
+							_user = user;
+							return _user.addSubscription(_channel)
+
+						}).then(function() {
+							if (--pendingChannels === 0) {
+								console.log("END SAVING CHANNELS FOR USER : " + _user.id);
+								resolve(_user);
+							}
+						});
+				})
+				// resolve(user);
+		}).catch(function(err) {
+			reject(err);
+		})
+	});
+}
+
+function getTwoRandomSubscriptions(user) {
+	console.log("GETTING RANDOM CHANNELS FOR USER : " + user.id);
+	return new Promise(function(resolve, reject) {
+		Models.channel.findOne({
+					order: 'RANDOM()',
+			include: [{
+				model: Models.user,
+				as: 'subscribers',
+				where: {
+					id: user.id
+				},
+				// order: 'RANDOM()',
+			}]
+		}).then(function(channels) {
+			console.log("END GETTING RANDOM CHANNELS");
+			resolve(channels);
 		}).catch(function(err) {
 			reject(err);
 		})
@@ -148,4 +175,5 @@ module.exports = {
 	getChannelsSubedBulk: getChannelsSubedBulk,
 	getAllChannelsSubed: getAllChannelsSubed,
 	saveChannels: saveChannels,
+	getTwoRandomSubscriptions: getTwoRandomSubscriptions
 }
