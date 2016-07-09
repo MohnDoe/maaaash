@@ -184,8 +184,10 @@ function getVote(user) {
 		return getNotCompletedVote(user)
 			.then(function(vote) {
 				if (vote) {
+					console.log('USING A NOT COMPLETED VOTE!');
 					return vote;
 				} else {
+					console.log('USING A BRAND NEW VOTE!');
 					var votesOperators = require('./votesOperators');
 					return votesOperators.generateVote(user);
 				}
@@ -198,9 +200,12 @@ function getVote(user) {
 }
 
 function getNotCompletedVote(user) {
-	console.log("GETTING NOT COMPLETED VOTE FOR USER #" + user.id);
+	// console.log("GETTING NOT COMPLETED VOTE FOR USER #" + user.id);
 	return new Promise(function(resolve, reject) {
 		return Models.vote.findOne({
+			where: {
+				is_completed: false
+			},
 			include: [{
 				model: Models.user,
 				where: {
