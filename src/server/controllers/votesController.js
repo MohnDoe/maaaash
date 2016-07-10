@@ -1,11 +1,7 @@
-var Models = require("../models");
-var Promise = require("bluebird");
-var _ = require("lodash");
-
 var Ops = require('../operators');
 
 
-function getVote(req, res, next) {
+function getVote(req, res) {
 	Ops.usersOperators.getVote(req.user)
 		.then(function(vote) {
 			res.status(200).json({
@@ -23,6 +19,16 @@ function getVote(req, res, next) {
 }
 
 
+function putWinner(res, res) {
+
+}
+
+function putDraw(req, res) {
+
+}
+
 module.exports = {
-	getVote: getVote
+	getVote: getVote,
+	putWinner: putWinner,
+	putDraw: putDraw
 }

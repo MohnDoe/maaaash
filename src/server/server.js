@@ -30,29 +30,25 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
-app.use('/', express.static('public'));
 
+var isAuthenticated = function(req, res, next) {
+	if (req.isAuthenticated()) {
+		return next();
+	}
+
+	res.status(401).json({
+		status: 'error',
+		message: 'You need to be logged in to do that'
+	});
+}
 
 // init routes
-
-
 app.use('/auth', require('./routes/auth'));
-app.use('/api/vote', require('./routes/api/vote'));
+app.use('/api/vote', isAuthenticated, require('./routes/api/vote'));
 
-// app.get('/', function(req, res) {
-// 	//Controllers.quoteController.getList(req, res);
-// })
-
-
-Models.sequelize.sync({
-	force: true
-}).then(function() {
-	app.listen(Config.server.port, function() {
-		// Models.user.create({
-		// 	username: "jondoe",
-		// 	password: 'jondoe',
-		// 	email: 'jondoe@gmail.com'
-		// });
-		console.log('MAAAASH app listening on port %s', Config.server.port);
+Models.sequelize.sync()
+	.then(function() {
+		app.listen(Config.server.port, function() {
+			console.log('MAAAASH app listening on port %s', Config.server.port);
+		});
 	});
-});
