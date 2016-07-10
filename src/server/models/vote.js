@@ -127,12 +127,12 @@ module.exports = function(sequelize, DataTypes) {
 			// 	this.channel_2_id = channel.id;
 			// 	this.channel_2_elo_before = channel.elo_points;
 			// },
-			// setWinner: function(channel) {
-			// 	this.winner_id = channel.id;
-			// },
-			// setLooser: function(channel) {
-			// 	this.looser_id = channel.id;
-			// },
+			setWinner: function(channel_id) {
+				this.winner_id = channel_id;
+			},
+			setLooser: function(channel) {
+				this.looser_id = channel_id;
+			},
 			// updateChannel1: function(channel) {
 			// 	this.channel_1_elo_after = channel.elo_points;
 			// },

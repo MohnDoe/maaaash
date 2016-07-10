@@ -95,7 +95,6 @@ function getChannelsSubedBulk(user, nextPageToken) {
 				});
 			})
 	});
-
 }
 
 function getAllChannelsSubed(user, allChannels, nextPageToken) {

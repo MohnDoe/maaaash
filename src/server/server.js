@@ -44,7 +44,7 @@ var isAuthenticated = function(req, res, next) {
 
 // init routes
 app.use('/auth', require('./routes/auth'));
-app.use('/api/vote', isAuthenticated, require('./routes/api/vote'));
+app.use('/api/vote', /*isAuthenticated,*/ require('./routes/api/vote'));
 
 Models.sequelize.sync()
 	.then(function() {

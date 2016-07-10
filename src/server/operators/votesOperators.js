@@ -42,7 +42,52 @@ function createVote(user, channel1, channel2) {
 	});
 }
 
+function existsByHashID(hash_id) {
+	return new Promise(function(resolve, reject) {
+		return Models.vote.findOne({
+			where: {
+				hash_id: hash_id
+			}
+		}).then(function(vote) {
+			resolve(vote);
+		}).catch(function(err) {
+			reject(err);
+		})
+	})
+}
+
+function setWinner(hash_id, side_winner) {
+	return new Pormis(function(resolve, reject) {
+		return existsByHashID(hash_id)
+			.then(function(vote) {
+				return vote;
+			})
+			.then(function(_vote) {
+				if (!_vote) {
+					resolve(false);
+				}
+
+				if (side_winner == 1) {
+					vote.setWinner(vote.channel1_id);
+					vote.setLooser(vote.channel2_id);
+					vote.save();
+				} else if (side_winner == 2) {
+					vote.setWinner(vote.channel2_id);
+					vote.setLooser(vote.channel1_id);
+					vote.save();
+				} else {
+
+				}
+				resolve(vote);
+			})
+			.catch(function(err) {
+				reject(err);
+			});
+	});
+}
+
 
 module.exports = {
-	generateVote: generateVote
+	generateVote: generateVote,
+	existsByHashID: existsByHashID
 }
