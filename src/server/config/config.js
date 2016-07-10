@@ -24,16 +24,6 @@ module.exports = {
     }
   },
   auth: {
-    facebook: {
-      clientID: '255278498175688',
-      clientSecret: 'a9cb4bc3e829a0af108ba53ef8194c32',
-      callbackURL: 'http://localhost:3000/auth/facebook/callback'
-    },
-    twitter: {
-      consumerKey: '7DpJ1r0t6jB5JXa7pgYahsohv',
-      consumerSecret: 'JLH2cTBwkbqfIaw3YL1YCYlqm4CPIXoJVNc4dr1vmOw0F8H4Y1',
-      callbackURL: 'http://localhost:3000/auth/twitter/callback'
-    },
     youtube: {
       clientID: process.env.SOCIAL_YOUTUBE_CLIENT_ID || '513018075592-fq4117bfdoq02g2e9fec5pho7hodvv3c.apps.googleusercontent.com',
       clientSecret: process.env.SOCIAL_YOUTUBE_CLIENT_SECRET || 'O6TJOsZhIA7HqRLxrKImwxt7',
