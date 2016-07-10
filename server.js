@@ -52,6 +52,6 @@ Models.sequelize.sync({
 		// 	password: 'jondoe',
 		// 	email: 'jondoe@gmail.com'
 		// });
-		console.log('Yniminy app listening on port 3000!');
+		console.log('MAAAASH app listening on port 3000!');
 	});
 });

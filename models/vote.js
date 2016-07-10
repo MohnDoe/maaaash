@@ -84,7 +84,17 @@ module.exports = function(sequelize, DataTypes) {
 		instanceMethods: {
 			toJSON: function() {
 				var values = _.omit(
-					this.dataValues, ['deleted_at', 'updated_at', 'user_id']
+					this.dataValues, [
+						'deleted_at',
+						'updated_at',
+						'channel1_elo_before',
+						'channel1_elo_after',
+						'channel2_elo_before',
+						'channel2_elo_after',
+						'winner_id',
+						'looser_id',
+						'is_draw'
+					]
 				);
 				if (this.user) {
 					values.user = this.user.toJSON();
