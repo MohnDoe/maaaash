@@ -52,6 +52,6 @@ Models.sequelize.sync({
 		// 	password: 'jondoe',
 		// 	email: 'jondoe@gmail.com'
 		// });
-		console.log('MAAAASH app listening on port %s', server.address().port);
+		console.log('MAAAASH app listening on port %s', Config.server.port);
 	});
 });
