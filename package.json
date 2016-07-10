@@ -31,14 +31,16 @@
     "slug": "^0.9.1",
     "youtube-api": "^2.0.2"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "nodemon": "^1.9.2"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node ./src/server/server.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/MohnDoe/quotrs-dev.git"
+    "url": "https://github.com/MohnDoe/choose.git"
   },
   "keywords": [
     "rap",
@@ -49,7 +51,7 @@
   "author": "Kevin F. Poivre",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/MohnDoe/quotrs-dev/issues"
+    "url": "https://github.com/MohnDoe/choose/issues"
   },
-  "homepage": "https://github.com/MohnDoe/quotrs-dev#readme"
+  "homepage": "https://github.com/MohnDoe/choose#readme"
 }
