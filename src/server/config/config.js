@@ -10,7 +10,8 @@ module.exports = {
     password: "postgres",
     database: "db_choose",
     host: "127.0.0.1",
-    dialect: "postgres"
+    dialect: "postgres",
+    url: process.env.DATABASE_URL
   },
   hashids: {
     hash_secret: {
