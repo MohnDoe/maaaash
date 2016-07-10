@@ -46,12 +46,12 @@ app.get('/', function(req, res) {
 Models.sequelize.sync({
 	force: true
 }).then(function() {
-	app.listen(3000, function() {
+	app.listen(Config.server.port, function() {
 		// Models.user.create({
 		// 	username: "jondoe",
 		// 	password: 'jondoe',
 		// 	email: 'jondoe@gmail.com'
 		// });
-		console.log('MAAAASH app listening on port 3000!');
+		console.log('MAAAASH app listening on port %s', server.address().port);
 	});
 });
