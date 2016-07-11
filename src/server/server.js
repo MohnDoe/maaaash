@@ -31,6 +31,15 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use(express.static(__dirname + '/../../dist/public'));
+
+app.use(function(req, res) {
+	//todo: read file and inject meta shit + if dev, no maxage
+	res.sendFile('index.html', {
+		root: __dirname + '/../../dist/public'
+	});
+});
+
 var isAuthenticated = function(req, res, next) {
 	if (req.isAuthenticated()) {
 		return next();

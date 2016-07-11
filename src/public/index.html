@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="App">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Maaaash - Choose one of the two</title>
+
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta property="og:title" content="Maaaash" />
+    <meta property="og:url" content="http://maaaash.com" />
+    <!--<meta property="og:image" content="http://ia.media-imdb.com/images/rock.jpg" />--
+    <!--<meta name="google-site-verification" content="M3VXAxcLtLyMXoiVMXYOkZCr-NqmoIAuexD1sxF0dkI" />-->
+
+    <!--<link rel="shortcut icon" type="image/png" href="{{logoEyesOpen == true ? 'img/ui/favicon-eyesopen.png' : 'img/ui/favicon-eyesclosed.png'}}">-->
+    <!--<link rel="shortcut icon" type="image/png" href="img/ui/favicon-eyesopen.png">-->
+    <!--<link rel="apple-touch-icon" sizes="57x57" href="img/apple-touch-icon.png">-->
+    <!--<link rel="apple-touch-icon" sizes="72x72" href="img/apple-touch-icon-72x72.png">-->
+    <!--<link rel="apple-touch-icon" sizes="114x114" href="img/apple-touch-icon-114x114.png">-->
+
+    <link rel="stylesheet" href="/css/main.css">
+    <base href="/">
+
+</head>
+<body ng-cloak>
+
+    <!--<notifications></notifications>-->
+    <blocker></blocker>
+    <sidebar></sidebar>
+
+    <!--<div class="container">-->
+    <!--<div class="row">-->
+    <!--<div class="col-xs-12">-->
+
+    <!--<span ng-show="!Login.loggedIn()">-->
+    <!--Login with:-->
+    <!--<a ng-click="Login.socialLogin('facebook')">F</a>-->
+    <!--<a ng-click="Login.socialLogin('twitter')">T</a>-->
+    <!--<a ng-click="Login.socialLogin('google')">G</a>-->
+    <!--</span>-->
+    <!--<span ng-show="Login.loggedIn()">-->
+    <!--Logged in as {{Login.getUser().username}} / <a ng-click="Login.logOut()">Log out</a>-->
+    <!--</span>-->
+
+    <div ui-view></div>
+
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+
+    <!--<footer></footer>-->
+
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script src="/js/vendor.js"></script>
+    <script src="/js/templates.js"></script>
+    <script src="/js/app.js"></script>
+    <!--<script src="/socket.io/socket.io.js"></script>-->
+</body>
+</html>
