@@ -6,7 +6,7 @@ var votesController = require('../../controllers/votesController');
 
 /* VOTES GET */
 // get a vote for a logged user
-router.get('', votesController.getVote);
+router.get('/new', votesController.getVote);
 // get a vote by the hash_id
 router.get('/:hash_id', votesController.getVoteByHashID);
 // get all votes corresponding to this identifier
@@ -14,7 +14,7 @@ router.get('/i/:identifier');
 // get count of all completed vote
 router.get('/completed');
 // get count of all vote
-router.get('/all');
+router.get('/');
 // get count of all deleted vote
 router.get('/deleted');
 /* END VOTES GET */
@@ -28,7 +28,7 @@ router.post('/'); // might not do that
 
 /* VOTES PUT */
 // set winner to a vote or a draw
-router.put('/:hash_id/:winner', votesController.putWinner);
+router.put('/:hash_id', votesController.putWinner);
 /* END VOTES PUT*/
 
 /* VOTES DELETE */

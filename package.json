@@ -36,12 +36,12 @@
     "youtube-api": "^2.0.2"
   },
   "devDependencies": {
-    "gulp": "^3.9.1",
-    "nodemon": "^1.9.2",
     "beepbeep": "^1.2.0",
+    "bower": "^1.7.9",
     "del": "^2.0.2",
     "dotenv": "^2.0.0",
     "express-livereload": "0.0.24",
+    "gulp": "^3.9.1",
     "gulp-angular-templatecache": "^1.8.0",
     "gulp-autoprefixer": "^3.0.2",
     "gulp-cached": "^1.1.0",
@@ -66,6 +66,7 @@
     "main-bower-files": "^2.9.0",
     "neat": "^1.2.2",
     "node-neat": "^1.7.2",
+    "nodemon": "^1.9.2",
     "terminal-notifier": "^0.1.2"
   },
   "scripts": {

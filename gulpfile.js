@@ -22,7 +22,7 @@ var flatten = require('gulp-flatten');
 //var coffee = require('gulp-coffee');
 var gutil = require('gulp-util');
 var imagemin = require('gulp-imagemin');
-//var nodemon = require('gulp-nodemon');
+var nodemon = require('gulp-nodemon');
 var fs = require('fs');
 var newy = require('gulp-newy');
 
@@ -74,46 +74,13 @@ gulp.task('server', function() {
         }
 
 
-        //nodemon({
-        //    script: 'src/server/web.js',
-        //    ext: 'js coffee',
-        //    env: env,
-        //    ignore: ['dist/**/*', 'src/server/auctionworker.js', 'src/public/*', 'gulpfile.js']
-        //});
-
-        //Fuck. Nodemon doesn't work when launched multiple times -_-'
-        //nodemon({
-        //    script: 'src/server/auctionworker.js',
-        //    ext: 'js coffee',
-        //    env: env,
-        //    ignore: ['dist/**/*', 'src/server/web.js', 'src/public/*', 'gulpfile.js']
-        //})
-
-        if (serverProcess) {
-            gutil.log("Restarting server..");
-            serverProcess.kill();
-        } else {
-            gutil.log("Starting server..");
-        }
-
-        //Hint
-        //gulp.src(['src/server/**/*.js', 'src/server/web.js'])
-        //.pipe(jshint())
-        //.pipe(jshint.reporter('default'));
-
-        //Todo: for heroku projects, replace this with heroku's run thingamajig. $ heroku run, i believe
-        serverProcess = spawn('node', ['src/server/web.js'], {
-                stdio: 'inherit',
-                env: env
-            })
-            .on('close', function(code) {
-                if (code === 8 || code === 1) {
-                    notifier("Node error " + code + ", check terminal", {
-                        title: "Error"
-                    });
-                    beep();
-                }
-            });
+        nodemon({
+            script: './src/server/server.js',
+            ext: 'js',
+            // env: env,
+            ignore: ['dist/**/*', 'src/public/*', 'gulpfile.js'],
+            watch: ['src/server/*']
+        });
     });
 
 });
@@ -157,7 +124,7 @@ gulp.task('watch', ['build'], function() {
     gulp.watch(["src/server/**/*.js", '.env'], ['server']);
 
     //CSS
-    gulp.watch("src/public/css/**/*.scss", ["styles"]);
+    gulp.watch(["src/public/css/**/*.scss", "src/public/css/*.scss"], ["styles"]);
 
     //Images + Fonts
     gulp.watch("src/public/img/**/*", ["images"]);
@@ -196,13 +163,17 @@ gulp.task('styles', function() {
     //.pipe(rename('main.globbed.scss'))
     //.pipe(gulp.dest('src/public/style'));
 
+    var sassPaths = [
+        'bower_components/foundation-sites/scss',
+        'bower_components/motion-ui/src'
+    ];
 
     //gulp.src('src/public/css/main.globbed.scss')
     gulp.src('src/public/css/main.scss')
         .pipe(rename('main.css'))
         .pipe(sourcemaps.init())
         .pipe(sass({
-            includePaths: ['bower_components'],
+            includePaths: sassPaths,
             outputStyle: 'compressed' //expanded / compressed
         }).on('error', function() {
             sass.logError.apply(this, arguments);
@@ -293,7 +264,7 @@ gulp.task('buildtemplates', function() {
 gulp.task('fonts', function() {
     gutil.log("Copying fonts ..");
     del.sync("dist/public/fonts");
-    gulp.src(['bower_components/**/*.@(otf|eot|ttf|woff|woff2)', 'src/public/**/*.@(otf|eot|ttf|woff|woff2)'])
+    gulp.src(['bower_components/**/*.@(otf|eot|ttf|woff|woff2)', 'public/**/*.@(otf|eot|ttf|woff|woff2)'])
         .pipe(flatten())
         .pipe(gulp.dest("dist/public/fonts"));
 });
@@ -332,7 +303,7 @@ gulp.task('images', function(src) {
 gulp.task('build', function() {
     gutil.log("Building project..");
     gulp.run("fonts");
-    // gulp.run("images");
+    gulp.run("images");
     gulp.run("styles");
     gulp.run("libraries");
     //gulp.run("compileserver");
@@ -342,4 +313,4 @@ gulp.task('build', function() {
 });
 
 // Default Task, run server and watch changes
-gulp.task('default', ['build', 'watch']);
+gulp.task('default', ['build', 'watch', 'server']);

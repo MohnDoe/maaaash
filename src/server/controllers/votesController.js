@@ -20,8 +20,8 @@ function getVote(req, res) {
 
 
 function putWinner(req, res) {
-	if (req.params.hash_id && req.params.winner) {
-		Ops.votesOperators.setWinner(req.params.hash_id, req.params.winner)
+	if (req.params.hash_id && req.body.winner) {
+		Ops.votesOperators.setWinner(req.params.hash_id, req.body.winner)
 			.then(function(vote) {
 				if (vote) {
 					res.status(200).json({

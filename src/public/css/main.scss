@@ -1,0 +1,33 @@
+@charset 'UTF-8';
+@import 'foundation/foundation-settings';
+@import 'foundation/foundation-import';
+
+[ui-view]
+{
+	height: 100%;
+	width: 100%;
+	display: block;
+}
+
+#container-join,
+#container-battle
+{
+	height : 100%;
+}
+
+#container-battle
+{
+	.container-channel
+	{
+		height: 100%;
+
+		.container-infos 
+		{
+			.channel-image
+			{
+				width: 100%;
+				height: auto;
+			}
+		}
+	}
+}
