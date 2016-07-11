@@ -1,3 +1,4 @@
 node_modules/
 .idea
 config/*.js
+bower_components/
