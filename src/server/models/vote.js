@@ -27,6 +27,14 @@ module.exports = function(sequelize, DataTypes) {
 		channel2_elo_after: {
 			type: DataTypes.INTEGER
 		},
+		channel1_elo_odds: {
+			type: DataTypes.DECIMAL(6, 5),
+			defaultValue: 0
+		},
+		channel2_elo_odds: {
+			type: DataTypes.DECIMAL(6, 5),
+			defaultValue: 0
+		},
 		is_completed: {
 			type: DataTypes.BOOLEAN,
 			defaultValue: false
@@ -139,26 +147,6 @@ module.exports = function(sequelize, DataTypes) {
 			generateChannelHashID: function(channel_id) {
 				return hashids_channel.encode(channel_id);
 			},
-			// setChannel1: function(channel) {
-			// 	this.channel_1_id = channel.id;
-			// 	this.channel_1_elo_before = channel.elo_points;
-			// },
-			// setChannel2: function(channel) {
-			// 	this.channel_2_id = channel.id;
-			// 	this.channel_2_elo_before = channel.elo_points;
-			// },
-			// setWinner: function(channel_id) {
-			// 	this.winner_id = channel_id;
-			// },
-			// setLooser: function(channel) {
-			// 	this.looser_id = channel_id;
-			// },
-			// updateChannel1: function(channel) {
-			// 	this.channel_1_elo_after = channel.elo_points;
-			// },
-			// updateChannel2: function(channel) {
-			// 	this.channel_2_elo_after = channel.elo_points;
-			// },
 			complete: function() {
 				this.is_completed = true;
 				this.completed_at = new Date();
