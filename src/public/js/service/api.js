@@ -43,7 +43,7 @@ angular.module('App').service('Api', function($http, $q, Config, $timeout, /*Not
             }
         }).error(function(message, status) {
             $timeout.cancel(cancelTimeout);
-
+            console.log(status);
             if (typeof options.errorHandler == 'function' && options.errorHandler(message, status)) {
                 //Error was handled by the custom error handler
                 return;

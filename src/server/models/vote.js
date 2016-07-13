@@ -105,7 +105,11 @@ module.exports = function(sequelize, DataTypes) {
 						'winner_id',
 						'looser_id',
 						'is_draw',
-						'id'
+						'id',
+						'created_at',
+						'user_id',
+						'channel1_id',
+						'channel2_id'
 					]
 				);
 				if (this.user) {
