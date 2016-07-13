@@ -17,6 +17,7 @@ function getChannelsSubedBulk(user, nextPageToken) {
 
 	return new Promise(function(resolve, reject) {
 		// TODO PROMISIFY THIS
+		// TODO save by bulk
 		oauth2Client.setCredentials({
 			access_token: user.access_token_youtube,
 			refresh_token: user.refresh_token_youtube
