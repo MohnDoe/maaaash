@@ -6,7 +6,8 @@ var express = require('express'),
 	cookieParser = require('cookie-parser'),
 	session = require('express-session'),
 	passport = require('passport'),
-	LocalStategy = require('passport-local').Stategy;
+	LocalStategy = require('passport-local').Stategy,
+	jwt = require('express-jwt');
 
 var Config = require('./config/config');
 
@@ -46,7 +47,12 @@ app.use(express.static(__dirname + '/../../dist/public'));
 
 // init routes
 app.use('/auth', require('./routes/auth'));
-app.use('/api/vote', isAuthenticated, require('./routes/api/vote'));
+app.use('/api/vote', isAuthenticated,
+	jwt({
+		secret: Config.server.jwt_secret
+	}),
+	require('./routes/api/vote'));
+
 app.use('/api/user', require('./routes/api/user'));
 
 app.use(function(req, res) {

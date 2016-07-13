@@ -1,6 +1,7 @@
 var Promise = require('bluebird'),
 	_ = require('lodash'),
-	Sequelize = require('sequelize');
+	Sequelize = require('sequelize'),
+	jwt = require('jsonwebtoken');
 var Models = require('../models');
 
 var Config = require('../config/config');
@@ -227,10 +228,17 @@ function getNotCompletedVote(user) {
 	});
 }
 
+function createToken(user) {
+	return jwt.sign(user, Config.server.jwt_secret, {
+		expiresIn: '30d'
+	});
+}
+
 module.exports = {
 	getChannelsSubedBulk: getChannelsSubedBulk,
 	getAllChannelsSubed: getAllChannelsSubed,
 	saveChannels: saveChannels,
 	getTwoRandomSubscriptions: getTwoRandomSubscriptions,
-	getVote: getVote
+	getVote: getVote,
+	createToken: createToken
 }

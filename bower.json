@@ -35,10 +35,10 @@
     "angular-moment": "^0.10.3",
     "moment": "^2.12.0",
     "bourbon": "^4.2.6",
-    "foundation-sites": "~6.1.2",
-    "motion-ui": "~1.1.0",
     "foundation-sites": "~6.2.0",
-    "motion-ui": "~1.2.2"
+    "motion-ui": "~1.2.2",
+    "angular-jwt": "^0.0.9",
+    "a0-angular-storage": "^0.0.15"
   },
   "resolutions": {
     "angular": "~1.5.0",

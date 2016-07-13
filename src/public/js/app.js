@@ -1,8 +1,13 @@
-angular.module('App', ['templates', 'ui.router', 'ngAnimate', 'ngRoute', 'angularMoment'])
+angular.module('App', ['templates', 'ui.router', 'ngAnimate', 'ngRoute', 'angularMoment', 'angular-storage', 'angular-jwt'])
     .constant('Config', {
         apiBase: window.location.protocol + "//" + window.location.host + "/api/"
     })
-    .config(function($stateProvider, $urlRouterProvider, $sceProvider, $locationProvider) {
+    .config(function($stateProvider, $urlRouterProvider, $sceProvider, $locationProvider, jwtInterceptorProvider, $httpProvider) {
+
+        jwtInterceptorProvider.tokenGetter = function(store) {
+            return store.get('jwt');
+        }
+        $httpProvider.interceptors.push('jwtInterceptor');
 
         $sceProvider.enabled(false);
         $locationProvider.html5Mode(true);
@@ -51,7 +56,10 @@ angular.module('App', ['templates', 'ui.router', 'ngAnimate', 'ngRoute', 'angula
             if (next.data.ensureAuthenticate) {
                 console.log('Need Authenticated user.');
                 if (!$rootScope.Login.isLogged()) {
-                    $location.path('/join');
+                    console.log('Dude is not logged');
+                    event.preventDefault();
+                    // $location.path('/join');
+                    $state.go('join');
                 }
             }
 

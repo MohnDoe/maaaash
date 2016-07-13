@@ -1,9 +1,9 @@
-angular.module('App').service('Login', function($rootScope, $interval, Api, $location) {
+angular.module('App').service('Login', function($rootScope, $interval, Api, $location, store) {
 
     var user = null;
     var status = 'notconnected';
     var credits = null;
-    //var JWT     = null;
+    var JWT = null;
     var loaded = false;
 
     function updateStatus(afterLogin) {
@@ -15,6 +15,9 @@ angular.module('App').service('Login', function($rootScope, $interval, Api, $loc
                 user = data.data.user || null;
                 status = data.data.status;
                 loaded = true;
+
+                JWT = data.data.jwt_token;
+                store.set('jwt', data.data.jwt_token);
 
                 if (afterLogin) {
                     if (status == 'connected') {
@@ -64,9 +67,12 @@ angular.module('App').service('Login', function($rootScope, $interval, Api, $loc
 
     return {
         isLogged: function() {
-            console.log(!!user);
-            return !!user;
+            return !!store.get('jwt');
         },
+        // isLogged: function() {
+        //     console.log(!!user);
+        //     return !!user;
+        // },
         logOut: function() {
             Api.call({
                 url: 'login/logout',

@@ -29,7 +29,8 @@ function createVote(user, channel1, channel2) {
 			.then(function(newVote) {
 				newVote.setChannel1(channel1);
 				newVote.setChannel2(channel2);
-				newVote.setUser(user);
+				newVote.user_id = user.id;
+				newVote.save();
 				return newVote;
 			})
 			.then(function(_newVote) {

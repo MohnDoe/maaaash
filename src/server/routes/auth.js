@@ -18,6 +18,15 @@ router.get('/youtube/callback',
 		failureRedirect: '/auth/failure'
 	}),
 	function(req, res) {
+		res.status(200).json({
+			status: 'success',
+			data: {
+				user: req.user,
+				jwt_token: Ops.usersOperators.createToken({
+					id: user.id
+				})
+			}
+		})
 		res.json(req.user);
 	});
 

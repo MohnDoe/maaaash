@@ -9,7 +9,10 @@ function getStatus(req, res) {
 			status: 'success',
 			data: {
 				status: 'connected',
-				user: req.user
+				user: req.user,
+				jwt_token: Ops.usersOperators.createToken({
+					id: req.user.id
+				})
 			}
 		});
 	} else {
