@@ -14,7 +14,8 @@ function getVote(req, res) {
 		}).catch(function(err) {
 			res.status(500).json({
 				status: 'error',
-				message: 'Internal Error!'
+				message: 'Internal Error!',
+				err: err.message
 			});
 		});
 }

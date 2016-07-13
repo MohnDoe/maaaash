@@ -209,11 +209,17 @@ function getVote(user) {
 }
 
 function getNotCompletedVote(user) {
-	// console.log("GETTING NOT COMPLETED VOTE FOR USER #" + user.id);
+	console.log("GETTING NOT COMPLETED VOTE FOR USER #" + user.id);
 	return new Promise(function(resolve, reject) {
 		return Models.vote.findOne({
 			where: {
-				is_completed: false
+				is_completed: false,
+				channel1_id: {
+					$ne: null
+				},
+				channel2_id: {
+					$ne: null
+				},
 			},
 			include: [{
 				model: Models.user,
