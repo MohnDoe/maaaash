@@ -10,6 +10,7 @@ function getVote(req, res) {
 					vote: vote
 				}
 			});
+
 		}).catch(function(err) {
 			res.status(500).json({
 				status: 'error',
@@ -35,15 +36,16 @@ function putWinner(req, res) {
 						}
 					});
 				} else {
-					res.status(404).json({
+					res.status(400).json({
 						status: 'error',
-						message: 'Vote does not exists, sorry.'
+						message: 'Bad params bro.'
 					})
 				}
 			}).catch(function(err) {
 				res.status(500).json({
 					status: 'error',
-					message: 'Internal Error!'
+					message: 'Internal Error! Here',
+					err: err.message
 				});
 			})
 	} else {

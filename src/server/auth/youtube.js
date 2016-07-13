@@ -20,7 +20,7 @@ passport.use(new YoutubeV3Strategy({
 		scope: ['https://www.googleapis.com/auth/youtube.readonly', 'https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile'],
 		authorizationParams: {
 			access_type: 'online',
-			approval_prompt: 'force'
+			approval_prompt: 'auto'
 		}
 	},
 	function(accessToken, refreshToken, profile, done) {

@@ -36,6 +36,17 @@ module.exports = function(sequelize, DataTypes) {
 			unique: true
 		}
 	}, {
+		scopes: {
+			withChannels: {
+				include: [{
+					model: sequelize.models.channel,
+					as: 'Channel1'
+				}, {
+					model: sequelize.models.channel,
+					as: 'Channel2'
+				}]
+			}
+		},
 		paranoid: true,
 		underscored: true,
 		hooks: {
@@ -93,7 +104,8 @@ module.exports = function(sequelize, DataTypes) {
 						'channel2_elo_after',
 						'winner_id',
 						'looser_id',
-						'is_draw'
+						'is_draw',
+						'id'
 					]
 				);
 				if (this.user) {
@@ -102,8 +114,8 @@ module.exports = function(sequelize, DataTypes) {
 				if (this.Channel1) {
 					values.Channel1 = this.Channel1.toJSON();
 				}
-				if (this.channel2) {
-					values.channel2 = this.channel2.toJSON();
+				if (this.Channel2) {
+					values.Channel2 = this.Channel2.toJSON();
 				}
 				if (this.winner) {
 					values.winner = this.winner.toJSON();
@@ -127,29 +139,22 @@ module.exports = function(sequelize, DataTypes) {
 			// 	this.channel_2_id = channel.id;
 			// 	this.channel_2_elo_before = channel.elo_points;
 			// },
-			setWinner: function(channel_id) {
-				this.winner_id = channel_id;
-			},
-			setLooser: function(channel) {
-				this.looser_id = channel_id;
-			},
+			// setWinner: function(channel_id) {
+			// 	this.winner_id = channel_id;
+			// },
+			// setLooser: function(channel) {
+			// 	this.looser_id = channel_id;
+			// },
 			// updateChannel1: function(channel) {
 			// 	this.channel_1_elo_after = channel.elo_points;
 			// },
 			// updateChannel2: function(channel) {
 			// 	this.channel_2_elo_after = channel.elo_points;
 			// },
-			complete: function(is_draw, channel_1, channel_2, channel_winner, channel_looser) {
+			complete: function() {
 				this.is_completed = true;
 				this.completed_at = new Date();
-				this.is_draw = is_draw;
-
-				this.updateChannel1(channel_1);
-				this.updateChannel2(channel_2);
-				if (!is_draw) {
-					this.setWinner(channel_winner);
-					this.setLooser(channel_looser);
-				}
+				return this.save();
 
 			}
 

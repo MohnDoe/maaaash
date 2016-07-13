@@ -1,17 +1,19 @@
 <div class="row medium-unstack align-stretch" id="container-battle">
-	<div class="small-12 columns container-side">
+	<div class="small-12 columns container-side" ng-click="vote(1)">
 		<div class="row align-center align-middle container-channel">
 			<div class="small-5 medium-5 container-infos">
-				<img src="https://unsplash.it/200?v1" class="channel-image">
-				<p>PewDiePie</p>
+				<img ng-src="{{battle.Channel1.thumbnail_url}}" class="channel-image">
+				<h3>{{battle.Channel1.name}}</h3>
+				<p>{{battle.Channel1.subscriber_count | number}} - {{battle.Channel1.view_count | number}} - {{battle.Channel1.video_count | number}}</p>
 			</div>
 		</div>
 	</div>
-	<div class="small-12 columns container-side">
+	<div class="small-12 columns container-side" ng-click="vote(2)">
 		<div class="row align-center align-middle container-channel">
 			<div class="small-5 medium-5 container-infos">
-				<img src="https://unsplash.it/200?v1" class="channel-image">
-				<p>PewDiePie</p>
+				<img ng-src="{{battle.Channel2.thumbnail_url}}" class="channel-image">
+				<h3>{{battle.Channel2.name}}</h3>
+				<p>{{battle.Channel2.subscriber_count | number}} - {{battle.Channel2.view_count | number}} - {{battle.Channel2.video_count | number}}</p>
 			</div>
 		</div>
 	</div>

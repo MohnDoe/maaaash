@@ -8,9 +8,7 @@ function generateVote(user) {
 	console.log('GENERATING A VOTE FOR USER #' + user.id);
 	return new Promise(function(resolve, reject) {
 		return usersOperators.getTwoRandomSubscriptions(user)
-			.then(function(channels) {
-				return channels;
-			}).then(function(_channels) {
+			.then(function(_channels) {
 				return createVote(user, _channels[0], _channels[1]);
 			}).then(function(_newVote) {
 				resolve(_newVote);
@@ -29,12 +27,15 @@ function createVote(user, channel1, channel2) {
 			.then(function(newVote) {
 				newVote.setChannel1(channel1);
 				newVote.setChannel2(channel2);
-				newVote.user_id = user.id;
-				newVote.save();
-				return newVote;
+				return newVote.update({
+					user_id: user.id
+				})
 			})
 			.then(function(_newVote) {
-				resolve(_newVote);
+				return getVote(_newVote);
+			})
+			.then(function(__newVote) {
+				resolve(__newVote);
 			})
 			.catch(function(err) {
 				reject(err);
@@ -45,41 +46,42 @@ function createVote(user, channel1, channel2) {
 
 function existsByHashID(hash_id) {
 	return new Promise(function(resolve, reject) {
-		return Models.vote.findOne({
-			where: {
-				hash_id: hash_id
-			}
-		}).then(function(vote) {
-			resolve(vote);
-		}).catch(function(err) {
-			reject(err);
-		})
+		return Models.vote
+			.scope('withChannels')
+			.findOne({
+				where: {
+					hash_id: hash_id
+				}
+			}).then(function(vote) {
+				resolve(vote);
+			}).catch(function(err) {
+				reject(err);
+			})
 	})
 }
 
 function setWinner(hash_id, side_winner) {
-	return new Pormis(function(resolve, reject) {
+	return new Promise(function(resolve, reject) {
 		return existsByHashID(hash_id)
 			.then(function(vote) {
-				return vote;
-			})
-			.then(function(_vote) {
-				if (!_vote) {
+				if (!vote) {
 					resolve(false);
 				}
-
 				if (side_winner == 1) {
-					vote.setWinner(vote.channel1_id);
-					vote.setLooser(vote.channel2_id);
-					vote.save();
+					vote.setWinner(vote.Channel1);
+					vote.setLooser(vote.Channel2);
+					// return vote.save();
 				} else if (side_winner == 2) {
-					vote.setWinner(vote.channel2_id);
-					vote.setLooser(vote.channel1_id);
-					vote.save();
+					vote.setWinner(vote.Channel2);
+					vote.setLooser(vote.Channel1);
+					// return vote.save();
 				} else {
-
+					resolve(false);
 				}
-				resolve(vote);
+				return vote.complete();
+			})
+			.then(function(_vote) {
+				resolve(_vote);
 			})
 			.catch(function(err) {
 				reject(err);
@@ -87,8 +89,29 @@ function setWinner(hash_id, side_winner) {
 	});
 }
 
+function getVote(vote) {
+	return new Promise(function(resolve, reject) {
+		return Models.vote
+			.scope('withChannels')
+			.findOne({
+				where: {
+					id: vote.id
+				}
+			})
+			.then(function(_vote) {
+				resolve(_vote);
+			})
+			.catch(function(err) {
+				console.log('error here');
+				console.log(err);
+				reject(err);
+			})
+	})
+}
 
 module.exports = {
 	generateVote: generateVote,
-	existsByHashID: existsByHashID
+	existsByHashID: existsByHashID,
+	getVote: getVote,
+	setWinner: setWinner
 }

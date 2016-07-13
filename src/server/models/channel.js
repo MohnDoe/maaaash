@@ -1,3 +1,5 @@
+var _ = require('lodash');
+
 module.exports = function(sequelize, DataTypes) {
 	var Channel = sequelize.define('channel', {
 		name: {
@@ -73,7 +75,20 @@ module.exports = function(sequelize, DataTypes) {
 		instanceMethods: {
 			toJSON: function() {
 				var values = _.omit(
-					this.dataValues, ['deleted_at', 'updated_at', 'created_at']
+					this.dataValues, [
+						'deleted_at',
+						'updated_at',
+						'created_at',
+						'elo_points',
+						'is_verified_youtube',
+						'published_at',
+						'lang',
+						'id',
+						'hidden_subscriber_count',
+						'custom_url',
+						'country',
+						'channel_id',
+					]
 				);
 				return values;
 			}

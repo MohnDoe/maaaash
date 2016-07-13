@@ -109,7 +109,7 @@ function getAllChannelsSubed(user, allChannels, nextPageToken) {
 				var _channels = channels;
 				allChannels = allChannels.concat(_channels.items);
 
-				if (_channels.nextPageToken) { // todo get this false outta here dude
+				if (_channels.nextPageToken && false) { // todo get this false outta here dude
 					console.log('# channels so far : ' + allChannels.length);
 					return getAllChannelsSubed(user, allChannels, _channels.nextPageToken).then(resolve);
 				} else {
@@ -187,16 +187,16 @@ function getTwoRandomSubscriptions(user) {
 }
 
 function getVote(user) {
+	var votesOperators = require('./votesOperators');
 	console.log("GETTING A VOTE FOR USER #" + user.id);
 	return new Promise(function(resolve, reject) {
 		return getNotCompletedVote(user)
 			.then(function(vote) {
 				if (vote) {
 					console.log('USING A NOT COMPLETED VOTE!');
-					return vote;
+					return votesOperators.getVote(vote);
 				} else {
 					console.log('USING A BRAND NEW VOTE!');
-					var votesOperators = require('./votesOperators');
 					return votesOperators.generateVote(user);
 				}
 			}).then(function(_vote) {

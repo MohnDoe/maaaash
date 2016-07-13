@@ -11,7 +11,7 @@ angular.module('App').service('Login', function($rootScope, $interval, Api, $loc
         Api.call({
             url: 'user/',
             callback: function(data) {
-                console.log(data);
+                // console.log(data);
                 user = data.data.user || null;
                 status = data.data.status;
                 loaded = true;
@@ -67,7 +67,10 @@ angular.module('App').service('Login', function($rootScope, $interval, Api, $loc
 
     return {
         isLogged: function() {
-            return !!store.get('jwt');
+            var jwt = store.get('jwt');
+            console.log(jwt);
+            console.log(!!jwt && jwt != 'undefined' && typeof jwt != 'undefined')
+            return (!!jwt && jwt != 'undefined' && typeof jwt != 'undefined');
         },
         // isLogged: function() {
         //     console.log(!!user);
