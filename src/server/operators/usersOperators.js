@@ -162,32 +162,37 @@ function saveChannels(user) {
 
 function getTwoRandomSubscriptions(user) {
 	console.log("GETTING RANDOM CHANNELS FOR USER : " + user.id);
+	// return Models.channel.findAll({
+	// 	order: [
+	// 		[Models.Sequelize.fn('RANDOM')]
+	// 	],
+	// 	limit: 2,
+	// 	include: [{
+	// 		model: Models.user,
+	// 		as: 'subscribers',
+	// 		through: {
+	// 			where: {
+	// 				user_id: user.id
+	// 			}
+	// 		}
+	// 	}]
 	return new Promise(function(resolve, reject) {
-		return Models.channel.findAll({
-			order: [
-				[Models.Sequelize.fn('RANDOM')]
-			],
-			limit: 2,
-			include: [{
-				model: Models.user,
-				as: 'subscribers',
-				where: {
-					id: user.id
-				},
-				order: [
-					[Models.Sequelize.fn('RANDOM')]
-				],
-			}]
-		}).then(function(channels) {
-			if (channels.length != 2) {
-				console.log('AGAIN SEARCHING FOR CHANNELS');
-				return getTwoRandomSubscriptions(user);
-			}
-			console.log("END GETTING RANDOM CHANNELS");
-			resolve(channels);
-		}).catch(function(err) {
-			reject(err);
-		})
+		return getUser(user)
+			.then(function(_user) {
+				return _user.getSubscriptions({
+					order: [
+						[Models.Sequelize.fn('RANDOM')]
+					],
+					limit: 2
+				})
+			})
+			.then(function(channels) {
+				console.log("CHANNELS FOUNDED : " + channels.length);
+				console.log("END GETTING RANDOM CHANNELS");
+				resolve(channels);
+			}).catch(function(err) {
+				reject(err);
+			})
 	});
 }
 
@@ -242,6 +247,23 @@ function getNotCompletedVote(user) {
 function createToken(user) {
 	return jwt.sign(user, Config.server.jwt_secret, {
 		expiresIn: '30d'
+	});
+}
+
+function getUser(user) {
+	return new Promise(function(resolve, reject) {
+		return Models.user
+			.findOne({
+				where: {
+					id: user.id
+				}
+			})
+			.then(function(_user) {
+				resolve(_user);
+			})
+			.catch(function(err) {
+				reject(err);
+			})
 	});
 }
 
