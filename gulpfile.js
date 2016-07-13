@@ -314,3 +314,4 @@ gulp.task('build', function() {
 
 // Default Task, run server and watch changes
 gulp.task('default', ['build', 'watch', 'server']);
+gulp.task('heroku:production', ['build', 'server']);

@@ -4,6 +4,7 @@
   "description": "Vote for one, simple",
   "main": "server.js",
   "dependencies": {
+    "gulp": "^3.9.1",
     "arpad": "^0.1.2",
     "bcrypt-nodejs": "0.0.3",
     "bluebird": "^3.4.1",
