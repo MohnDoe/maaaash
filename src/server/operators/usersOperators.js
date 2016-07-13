@@ -108,7 +108,7 @@ function getAllChannelsSubed(user, allChannels, nextPageToken) {
 				var _channels = channels;
 				allChannels = allChannels.concat(_channels.items);
 
-				if (_channels.nextPageToken && false) { // todo get this false outta here dude
+				if (_channels.nextPageToken) { // todo get this false outta here dude
 					console.log('# channels so far : ' + allChannels.length);
 					return getAllChannelsSubed(user, allChannels, _channels.nextPageToken).then(resolve);
 				} else {
@@ -139,7 +139,15 @@ function saveChannels(user) {
 						}).then(function() {
 							if (--pendingChannels === 0) {
 								console.log("END SAVING CHANNELS FOR USER : " + _user.id);
-								resolve(_user);
+								_user.last_synced = new Date();
+
+								_user.save()
+									.then(function(_user) {
+										resolve(_user);
+									})
+									.catch(function(err) {
+										reject(err);
+									})
 							}
 						});
 				})

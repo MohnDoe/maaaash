@@ -18,7 +18,11 @@ angular.module('App').service('Login', function($rootScope, $interval, Api, $loc
 
                 if (afterLogin) {
                     if (status == 'connected') {
-                        $rootScope.$emit('successfullyLogged');
+                        if (user.last_synced === null) {
+                            $rootScope.$emit('successfullySignedUp')
+                        } else {
+                            $rootScope.$emit('successfullyLogged');
+                        }
                     } else {
                         $rootScope.$emit('failedLogin');
                     }
@@ -32,6 +36,11 @@ angular.module('App').service('Login', function($rootScope, $interval, Api, $loc
     $rootScope.$on('successfullyLogged', function() {
         console.log('successfullyLogged');
         $location.path('/');
+    });
+
+    $rootScope.$on('successfullySignedUp', function() {
+        console.log('successfullySignedUp');
+        $location.path('/sync');
     });
 
     function logWithYoutube() {
@@ -55,7 +64,8 @@ angular.module('App').service('Login', function($rootScope, $interval, Api, $loc
 
     return {
         isLogged: function() {
-            return !!user || status != 'connected';
+            console.log(!!user);
+            return !!user;
         },
         logOut: function() {
             Api.call({

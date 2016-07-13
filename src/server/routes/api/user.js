@@ -3,11 +3,24 @@ var express = require('express'),
 
 var usersController = require('../../controllers/usersController');
 
+var isAuthenticated = function(req, res, next) {
+	if (req.isAuthenticated()) {
+		return next();
+	}
+
+	res.status(401).json({
+		status: 'error',
+		message: 'You need to be logged in to do that'
+	});
+}
+
 /* USERS GET */
 // get info about connected user
 router.get('/', usersController.getStatus);
 // get a user by ID
+router.get('/sync', isAuthenticated, usersController.syncChannels);
 router.get('/:id');
+// get a user by ID
 // get count of all user
 router.get('/all');
 // get count of all deleted user

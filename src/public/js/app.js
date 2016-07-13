@@ -16,6 +16,14 @@ angular.module('App', ['templates', 'ui.router', 'ngAnimate', 'ngRoute', 'angula
                     ensureAuthenticate: false
                 }
             })
+            .state('sync', {
+                url: '/sync',
+                templateUrl: 'sync/index.html',
+                controller: 'SyncCtrl as Sync',
+                data: {
+                    ensureAuthenticate: true
+                }
+            })
             .state('battle', {
                 url: '/',
                 templateUrl: 'battle/index.html',
@@ -41,6 +49,7 @@ angular.module('App', ['templates', 'ui.router', 'ngAnimate', 'ngRoute', 'angula
 
         $rootScope.$on("$stateChangeStart", function(event, next, current) {
             if (next.data.ensureAuthenticate) {
+                console.log('Need Authenticated user.');
                 if (!$rootScope.Login.isLogged()) {
                     $location.path('/join');
                 }

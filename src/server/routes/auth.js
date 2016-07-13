@@ -18,21 +18,7 @@ router.get('/youtube/callback',
 		failureRedirect: '/auth/failure'
 	}),
 	function(req, res) {
-		// Successful authentication
 		res.json(req.user);
-		// Ops.usersOperators.saveChannels(req.user).then(function(user) {
-		// 	// Ops.usersOperators.getVote(user)
-		// 	// 	.then(function(vote) {
-		// 	// 		console.log(vote.dataValues);
-		// 	// 	})
-		// 	// 	.catch(function(err) {
-		// 	// 		console.log(err.message);
-		// 	// 	})
-		// 	console.log('all done');
-		// }).catch(function(err) {
-		// 	console.log("Error!");
-		// 	console.log(err.message);
-		// })
 	});
 
 module.exports = router;

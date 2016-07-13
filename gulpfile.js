@@ -121,7 +121,7 @@ gulp.task('watch', ['build'], function() {
     //gulp.watch("src/server/**/*.coffee", ['compileserver']);
 
     //JS files in server OR .env = restart server
-    gulp.watch(["src/server/**/*.js", '.env'], ['server']);
+    // gulp.watch(["src/server/**/*.js", '.env'], ['server']);
 
     //CSS
     gulp.watch(["src/public/css/**/*.scss", "src/public/css/*.scss"], ["styles"]);
