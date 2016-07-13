@@ -169,7 +169,7 @@ function updateElo(vote, winner) {
 				return data.vote.update({
 					channel1_elo_before: data.elo_points_channel_1,
 					channel1_elo_odds: data.odds_channel_1_wins,
-					channel2_elo_after: data.new_elo_points_channel_2,
+					channel1_elo_after: data.new_elo_points_channel_1,
 					channel2_elo_before: data.elo_points_channel_2,
 					channel2_elo_odds: data.odds_channel_2_wins,
 					channel2_elo_after: data.new_elo_points_channel_2,
