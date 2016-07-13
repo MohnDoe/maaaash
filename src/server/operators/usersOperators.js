@@ -179,6 +179,10 @@ function getTwoRandomSubscriptions(user) {
 				],
 			}]
 		}).then(function(channels) {
+			if (channels.length != 2) {
+				console.log('AGAIN SEARCHING FOR CHANNELS');
+				return getTwoRandomSubscriptions(user);
+			}
 			console.log("END GETTING RANDOM CHANNELS");
 			resolve(channels);
 		}).catch(function(err) {
