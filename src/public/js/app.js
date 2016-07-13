@@ -11,12 +11,18 @@ angular.module('App', ['templates', 'ui.router', 'ngAnimate', 'ngRoute', 'angula
             .state('join', {
                 url: '/join',
                 templateUrl: 'join/index.html',
-                controller: 'JoinCtrl as Join'
+                controller: 'JoinCtrl as Join',
+                data: {
+                    ensureAuthenticate: false
+                }
             })
             .state('battle', {
                 url: '/',
                 templateUrl: 'battle/index.html',
-                // controller: 'BattleCtrl as Battle'
+                controller: 'BattleCtrl as Battle',
+                data: {
+                    ensureAuthenticate: true
+                }
             })
 
         $urlRouterProvider.otherwise(function($injector) {
@@ -28,8 +34,22 @@ angular.module('App', ['templates', 'ui.router', 'ngAnimate', 'ngRoute', 'angula
         });
 
     })
-    .run(function($rootScope, $state, $timeout) {
+    .run(function($rootScope, $state, $timeout, Login, Blocker, $location) {
         $rootScope.$state = $state;
+        $rootScope.Login = Login;
+        $rootScope.Blocker = Blocker;
+
+        $rootScope.$on("$stateChangeStart", function(event, next, current) {
+            if (next.data.ensureAuthenticate) {
+                if (!$rootScope.Login.isLogged()) {
+                    $location.path('/join');
+                }
+            }
+
+            if (next.url == '/join' && $rootScope.Login.isLogged()) {
+                $location.path('/');
+            }
+        });
 
         $rootScope.safeApply = function safeApply(operation) {
             var phase = this.$root.$$phase;
@@ -42,5 +62,7 @@ angular.module('App', ['templates', 'ui.router', 'ngAnimate', 'ngRoute', 'angula
                 operation();
             }
         };
+
+
 
     });

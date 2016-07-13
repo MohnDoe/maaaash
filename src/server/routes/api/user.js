@@ -5,7 +5,7 @@ var usersController = require('../../controllers/usersController');
 
 /* USERS GET */
 // get info about connected user
-router.get('/');
+router.get('/', usersController.getStatus);
 // get a user by ID
 router.get('/:id');
 // get count of all user

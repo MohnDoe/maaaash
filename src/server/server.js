@@ -47,6 +47,7 @@ app.use(express.static(__dirname + '/../../dist/public'));
 // init routes
 app.use('/auth', require('./routes/auth'));
 app.use('/api/vote', isAuthenticated, require('./routes/api/vote'));
+app.use('/api/user', require('./routes/api/user'));
 
 app.use(function(req, res) {
 	//todo: read file and inject meta shit + if dev, no maxage

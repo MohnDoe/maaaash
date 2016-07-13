@@ -1,12 +1,15 @@
 angular.module('App')
-	.controller('BattleCtrl', function($rootScope, $state, Api) {
+	.controller('BattleCtrl', function($rootScope, $state, Api, Login) {
 		var scope = this;
 		scope.battle = null;
-		Api.call({
-			url: 'vote/new',
-			callback: function(data) {
-				console.log(data);
-				scope.battle = data.vote;
-			}
-		});
+
+		scope.getNewBattle = function() {
+			Api.call({
+				url: 'vote/new',
+				callback: function(data) {
+					console.log(data);
+					scope.battle = data.vote;
+				}
+			});
+		}
 	});
