@@ -94,6 +94,7 @@ module.exports = function(sequelize, DataTypes) {
 		},
 		instanceMethods: {
 			toJSON: function() {
+
 				var values = _.omit(
 					this.dataValues, [
 						'deleted_at',
@@ -109,17 +110,20 @@ module.exports = function(sequelize, DataTypes) {
 						'created_at',
 						'user_id',
 						'channel1_id',
-						'channel2_id'
+						'channel2_id',
+						'Channel1',
+						'Channel2',
 					]
 				);
+				values.channels = [];
 				if (this.user) {
 					values.user = this.user.toJSON();
 				}
 				if (this.Channel1) {
-					values.Channel1 = this.Channel1.toJSON();
+					values.channels[0] = this.Channel1.toJSON();
 				}
 				if (this.Channel2) {
-					values.Channel2 = this.Channel2.toJSON();
+					values.channels[1] = this.Channel2.toJSON();
 				}
 				if (this.winner) {
 					values.winner = this.winner.toJSON();

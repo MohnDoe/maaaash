@@ -65,7 +65,7 @@ app.use(function(req, res) {
 
 
 Models.sequelize.sync({
-		force: true
+		// force: true
 	})
 	.then(function() {
 		app.listen(Config.server.port, function() {
