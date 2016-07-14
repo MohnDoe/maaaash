@@ -64,11 +64,10 @@ app.use(function(req, res) {
 
 
 
-Models.sequelize.sync({
-		force: true
-	})
+Models.sequelize.sync()
 	.then(function() {
 		app.listen(Config.server.port, function() {
 			console.log('MAAAASH app listening on port %s', Config.server.port);
+			Ops.pointsOperators.init();
 		});
 	});
