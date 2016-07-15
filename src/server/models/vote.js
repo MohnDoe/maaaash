@@ -123,6 +123,8 @@ module.exports = function(sequelize, DataTypes) {
 						'channel2_id',
 						'Channel1',
 						'Channel2',
+						'channel2_elo_odds',
+						'channel1_elo_odds'
 					]
 				);
 				values.channels = [];
