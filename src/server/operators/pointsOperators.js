@@ -70,31 +70,57 @@ function getLevels() {
 }
 
 function getPointsEarned(actions, bonus) {
-	var pointsEarned = 0;
-	for (var i = 0; i < actions.length; i++) {
-		if (_.has(POINTS.ACTIONS, actions[i])) {
-			pointsEarned += POINTS.ACTIONS[actions[i]];
-		}
-	}
-	if (bonus) {
-		for (var i = 0; i < bonus.length; i++) {
-			if (_.has(POINTS.BONUS, bonus[i])) {
-				pointsEarned += POINTS.BONUS[bonus[i]];
+	return new Promise(function(resolve, reject) {
+		var pointsEarned = 0;
+		for (var i = 0; i < actions.length; i++) {
+			if (_.has(POINTS.ACTIONS, actions[i])) {
+				pointsEarned += POINTS.ACTIONS[actions[i]];
 			}
 		}
-	}
-	return pointsEarned;
+		if (bonus) {
+			for (var i = 0; i < bonus.length; i++) {
+				if (_.has(POINTS.BONUS, bonus[i])) {
+					pointsEarned += POINTS.BONUS[bonus[i]];
+				}
+			}
+		}
+		resolve(pointsEarned);
+	});
 }
 
 function addPoints(user, points) {
-	user.increment({
-		points: points
+	return new Promise(function(resolve, reject) {
+		return user.increment({
+				points: points
+			})
+			.then(function(user) {
+				resolve(user.points);
+			})
+			.catch(function(err) {
+				reject(err);
+			})
 	});
-	return user.points;
+
 }
 
 function addPointsByActions(user, actions, bonus) {
-	return addPoints(user, getPointsEarned(actions, bonus));
+	return new Promise(function(resolve, reject) {
+		return getPointsEarned(actions, bonus)
+			.then(function(pointsEarned) {
+				_pointsEarned = pointsEarned;
+				return addPoints(user, _pointsEarned);
+			})
+			.then(function(totalPoints) {
+				resolve({
+					total_points: totalPoints,
+					earned_points: _pointsEarned
+				})
+			})
+			.catch(function(err) {
+				reject(err);
+			})
+
+	})
 }
 
 init();
