@@ -52,6 +52,10 @@ passport.use(new YoutubeV3Strategy({
 
 		oauth2.userinfo.get({}, function(err, data) {
 			var userinfo = data;
+			var email = null;
+			if (userinfo.email.split('@')[1] != 'pages.plusgoogle.com') {
+				email = userinfo.email;
+			}
 			// console.log(userinfo);
 			Models.user.findOrCreate({
 				where: {
@@ -60,6 +64,7 @@ passport.use(new YoutubeV3Strategy({
 				defaults: {
 					display_name: profile.displayName,
 					// username: profile.username,
+					email: email,
 					plusgoogle_email: userinfo.email,
 					plusgoogle_id: userinfo.id,
 					youtube_id: profile.id,
@@ -70,6 +75,7 @@ passport.use(new YoutubeV3Strategy({
 				if (!created) {
 					user.update({
 						youtube_id: profile.id,
+						email: email,
 						plusgoogle_email: userinfo.email,
 						plusgoogle_id: userinfo.id,
 						access_token_youtube: accessToken,

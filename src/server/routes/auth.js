@@ -27,7 +27,6 @@ router.get('/youtube/callback',
 				})
 			}
 		})
-		res.json(req.user);
 	});
 
 module.exports = router;
