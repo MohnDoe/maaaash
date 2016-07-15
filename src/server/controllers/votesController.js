@@ -23,26 +23,16 @@ function getVote(req, res) {
 
 function putWinner(req, res) {
 	if (req.params.hash_id && req.body.winner) {
-		Ops.votesOperators.setWinner(req.params.hash_id, req.body.winner)
-			.then(function(vote) {
-				if (vote) {
-					res.status(200).json({
-						status: 'success',
-						data: {
-							points: {
-								total: 5,
-								voted: 20,
-								voted_fast: 5
-							}
-						}
-					});
-				} else {
-					res.status(400).json({
-						status: 'error',
-						message: 'Bad params bro.'
-					})
-				}
-			}).catch(function(err) {
+		Ops.usersOperators.vote(req.params.hash_id, req.body.winner)
+			.then(function(points) {
+				res.status(200).json({
+					status: 'success',
+					data: {
+						points: points
+					}
+				})
+			})
+			.catch(function(err) {
 				res.status(500).json({
 					status: 'error',
 					message: 'Internal Error! Here',

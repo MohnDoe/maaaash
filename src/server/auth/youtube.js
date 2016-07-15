@@ -17,7 +17,11 @@ passport.use(new YoutubeV3Strategy({
 		clientID: Config.auth.youtube.clientID,
 		clientSecret: Config.auth.youtube.clientSecret,
 		callbackURL: Config.auth.youtube.callbackURL,
-		scope: ['https://www.googleapis.com/auth/youtube.readonly', 'https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile'],
+		scope: [
+			'https://www.googleapis.com/auth/youtube.readonly',
+			'https://www.googleapis.com/auth/userinfo.email',
+			'https://www.googleapis.com/auth/userinfo.profile'
+		],
 		authorizationParams: {
 			access_type: 'online',
 			approval_prompt: 'auto'

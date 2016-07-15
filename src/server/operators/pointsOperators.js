@@ -1,47 +1,108 @@
 var Models = require('../models');
-var Promise = require('bluebird');
+var Promise = require('bluebird'),
+	_ = require('lodash');
 
 var POINTS = {
-	NORMAL_VOTE: 10,
-	NEUTRAL_VOTE: 5,
-	BONUS_VOTE: {
-		HARD: 10,
-		MEDIUM: 5,
-		NORMAL: 0
+	ACTIONS: {
+		'NORMAL_VOTE': 10,
+		'NEUTRAL_VOTE': 5,
+	},
+	BONUS: {
+		'HARD_VOTE': 10,
+		'MEDIUM_VOTE': 5,
+		'NORMAL_VOTE': 0
 	},
 	STARTER: 200
 }
+var LEVELS_NAMES = [
+	'New comer',
+	'Beginner',
+	'Voter',
+];
 
+// var NUMBER_LEVELS = LEVELS_NAMES.length;
 var NUMBER_LEVELS = 50;
 
 var LEVELS = [];
 
+
 function init() {
-	var DELTA = 0.6;
-	var step = POINTS.NORMAL_VOTE * 10;
+	var DELTA = 0.75;
+	var step = POINTS.ACTIONS['NORMAL_VOTE'] * 10;
 	var levels = [];
 	for (var i = 0; i < NUMBER_LEVELS; i++) {
 		if (i % 5 == 0 && i != 0) {
 			// console.log("step increase");
-			step += POINTS.NORMAL_VOTE * 9.5;
+			step += POINTS.ACTIONS['NORMAL_VOTE'] * 10;
 		}
 
 		if (i == 0) {
-			pointsNeeded = POINTS.NORMAL_VOTE;
+			pointsNeeded = POINTS.ACTIONS['NORMAL_VOTE'];
 		} else if (i == 1) {
-			pointsNeeded = POINTS.NORMAL_VOTE * 5;
+			pointsNeeded = POINTS.ACTIONS['NORMAL_VOTE'] * 5;
 		} else {
-			// pointsNeeded = levels[i - 1] + (levels[i - 2] * DELTA);
-			pointsNeeded = levels[i - 1] + step;
+			// pointsNeeded = levels[i - 1].points + (levels[i - 2].points * DELTA);
+			pointsNeeded = levels[i - 1].points + step;
 			pointsNeeded = Math.round(pointsNeeded);
 		}
-		levels[i] = pointsNeeded;
+		levels[i] = {
+			number: i + 1,
+			name: LEVELS_NAMES[i],
+			points: pointsNeeded
+		};
 	}
 
 	LEVELS = levels;
 }
 
+function getLevelByPoints(points) {
+	for (var i = 0; i < LEVELS.length; i++) {
+		level = LEVELS[i];
+		if (level.points >= points) {
+			return level;
+		}
+	}
+	return LEVELS[1];
+}
+
+function getLevels() {
+	return LEVELS;
+}
+
+function getPointsEarned(actions, bonus) {
+	var pointsEarned = 0;
+	for (var i = 0; i < actions.length; i++) {
+		if (_.has(POINTS.ACTIONS, actions[i])) {
+			pointsEarned += POINTS.ACTIONS[actions[i]];
+		}
+	}
+	if (bonus) {
+		for (var i = 0; i < bonus.length; i++) {
+			if (_.has(POINTS.BONUS, bonus[i])) {
+				pointsEarned += POINTS.BONUS[bonus[i]];
+			}
+		}
+	}
+	return pointsEarned;
+}
+
+function addPoints(user, points) {
+	user.increment({
+		points: points
+	});
+	return user.points;
+}
+
+function addPointsByActions(user, actions, bonus) {
+	return addPoints(user, getPointsEarned(actions, bonus));
+}
+
+init();
+
 module.exports = {
-	POINTS: POINTS,
-	init: init
+	getLevelByPoints: getLevelByPoints,
+	getLevels: getLevels,
+	addPoints: addPoints,
+	getPointsEarned: getPointsEarned,
+	addPointsByActions: addPointsByActions
 }

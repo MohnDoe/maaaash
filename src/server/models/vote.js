@@ -52,6 +52,8 @@ module.exports = function(sequelize, DataTypes) {
 				}, {
 					model: sequelize.models.channel,
 					as: 'Channel2'
+				}, {
+					model: sequelize.models.user
 				}]
 			}
 		},

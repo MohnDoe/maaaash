@@ -3,6 +3,7 @@ var Promise = require('bluebird'),
 	Sequelize = require('sequelize'),
 	jwt = require('jsonwebtoken');
 var Models = require('../models');
+var pointsOperators = require('./pointsOperators');
 
 var Config = require('../config/config');
 
@@ -267,11 +268,29 @@ function getUser(user) {
 	});
 }
 
+function vote(hash_id, winner) {
+	var votesOperators = require('./votesOperators');
+	return new Promise(function(resolve, reject) {
+		return votesOperators.setWinner(hash_id, winner)
+			.then(function(vote) {
+				console.log(vote);
+				return pointsOperators.addPointsByActions(vote.user, ['NORMAL_VOTE'])
+			})
+			.then(function(points) {
+				resolve(points);
+			})
+			.catch(function(err) {
+				reject(err);
+			});
+	});
+}
+
 module.exports = {
 	getChannelsSubedBulk: getChannelsSubedBulk,
 	getAllChannelsSubed: getAllChannelsSubed,
 	saveChannels: saveChannels,
 	getTwoRandomSubscriptions: getTwoRandomSubscriptions,
 	getVote: getVote,
-	createToken: createToken
+	createToken: createToken,
+	vote: vote
 }
