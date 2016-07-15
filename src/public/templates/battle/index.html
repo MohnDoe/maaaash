@@ -1,20 +1,61 @@
-<div class="row medium-unstack align-stretch" id="container-battle">
-	<div class="small-12 columns container-side" ng-click="vote(1)">
-		<div class="row align-center align-middle container-channel">
-			<div class="small-5 medium-5 container-infos">
-				<img ng-src="{{battle.channels[0].thumbnail_url}}" class="channel-image">
-				<h3>{{battle.channels[0].name}}</h3>
-				<p>{{battle.channels[0].subscriber_count | number}} - {{battle.channels[0].view_count | number}} - {{battle.channels[0].video_count | number}}</p>
+<div class="medium-unstack align-stretch" layout="row" layout-xs="column" id="container-battle">
+	<div 
+	class="small-12 container-side" 
+	ng-click="vote(1)" 
+	flex="auto" 
+	layout-xs="column" 
+	layout="row" 
+	layout-align="center center">
+
+		<div 
+		class="small-5 medium-5 container-infos" 
+		flex="50"
+		flex-gt-xs="66"
+		layout="column" 
+		layout-align="center center">
+			<div class="container-image"
+				layout-fill
+				layout-align="center center"
+				md-whiteframe="2">
+				<img 
+				ng-src="{{battle.channels[0].thumbnail_url}}" 
+				class="channel-image" 
+				/>
+				<div class="informations"> 
+					<h3>{{battle.channels[0].name}}</h3>
+					<p>{{battle.channels[0].subscriber_count | number}} - {{battle.channels[0].view_count | number}} - {{battle.channels[0].video_count | number}}</p>
+				</div>
 			</div>
 		</div>
+
 	</div>
-	<div class="small-12 columns container-side" ng-click="vote(2)">
-		<div class="row align-center align-middle container-channel">
-			<div class="small-5 medium-5 container-infos">
-				<img ng-src="{{battle.channels[1].thumbnail_url}}" class="channel-image">
-				<h3>{{battle.channels[1].name}}</h3>
-				<p>{{battle.channels[1].subscriber_count | number}} - {{battle.channels[1].view_count | number}} - {{battle.channels[1].video_count | number}}</p>
+	<div 
+	class="small-12 container-side" 
+	ng-click="vote(2)" 
+	flex="auto" 
+	layout-xs="column" 
+	layout="row" 
+	layout-align="center center">
+		<div 
+		class="small-5 medium-5 container-infos" 
+		flex="50"
+		flex-gt-xs="66"
+		layout="column" 
+		layout-align="center center">
+			<div class="container-image"
+				layout-fill
+				layout-align="center center"
+				md-whiteframe="2">
+				<img 
+				ng-src="{{battle.channels[1].thumbnail_url}}" 
+				class="channel-image" 
+				/>
+				<div class="informations"> 
+					<h3>{{battle.channels[1].name}}</h3>
+					<p>{{battle.channels[1].subscriber_count | number}} - {{battle.channels[1].view_count | number}} - {{battle.channels[1].video_count | number}}</p>
+				</div>
 			</div>
 		</div>
+
 	</div>
 </div>

@@ -1,4 +1,4 @@
-angular.module('App', ['templates', 'ui.router', 'ngAnimate', 'ngRoute', 'angularMoment', 'angular-storage', 'angular-jwt'])
+angular.module('App', ['templates', 'ngMaterial', 'ui.router', 'ngAnimate', 'ngRoute', 'angularMoment', 'angular-storage', 'angular-jwt'])
     .constant('Config', {
         apiBase: window.location.protocol + "//" + window.location.host + "/api/"
     })

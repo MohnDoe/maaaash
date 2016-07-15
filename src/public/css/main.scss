@@ -1,6 +1,8 @@
 @charset 'UTF-8';
-@import 'foundation/foundation-settings';
-@import 'foundation/foundation-import';
+
+@import '../../../bower_components/angular-material/modules/scss/angular-material.scss';
+@import '../../../bower_components/angular-material/modules/scss/angular-material.layout-attributes.scss';
+@import '../../../bower_components/angular-material/modules/scss/angular-material.layouts.scss';
 
 [ui-view]
 {
@@ -17,16 +19,28 @@
 
 #container-battle
 {
-	.container-channel
-	{
-		height: 100%;
+	.container-side{
+		// height : 50%;
 
 		.container-infos 
 		{
-			.channel-image
-			{
-				width: 100%;
-				height: auto;
+			position: relative;
+			height: auto;
+			.container-image{
+				position: relative;
+				.informations
+				{
+					position: absolute;
+					top: 0;
+					left: 0;
+					right: 0;
+					bottom: 0;
+				}
+				.channel-image
+				{
+					width: 100%;
+					height: 100%;
+				}
 			}
 		}
 	}
