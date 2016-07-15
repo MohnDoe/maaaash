@@ -1,4 +1,4 @@
-angular.module('App').service('Api', function($http, $q, Config, $timeout, /*Notifications,*/ Blocker) {
+angular.module('App').service('Api', function($http, $q, Config, $timeout, /*Notifications,*/ Blocker, $state) {
 
 
     /**
@@ -43,7 +43,6 @@ angular.module('App').service('Api', function($http, $q, Config, $timeout, /*Not
             }
         }).error(function(message, status) {
             $timeout.cancel(cancelTimeout);
-            console.log(status);
             if (typeof options.errorHandler == 'function' && options.errorHandler(message, status)) {
                 //Error was handled by the custom error handler
                 return;
@@ -52,6 +51,9 @@ angular.module('App').service('Api', function($http, $q, Config, $timeout, /*Not
             if (!status) {
                 console.log("Error without status; request aborted?");
                 return;
+            }
+            if (status == 401) {
+                $state.go('join');
             }
 
             // Notifications.add("Error " + status, message);
