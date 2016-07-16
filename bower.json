@@ -38,8 +38,7 @@
     "foundation-sites": "~6.2.0",
     "motion-ui": "~1.2.2",
     "angular-jwt": "^0.0.9",
-    "a0-angular-storage": "^0.0.15",
-    "angular-material": "^1.0.9"
+    "a0-angular-storage": "^0.0.15"
   },
   "resolutions": {
     "angular": "~1.5.0",

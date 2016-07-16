@@ -164,7 +164,8 @@ gulp.task('styles', function() {
     //.pipe(gulp.dest('src/public/style'));
 
     var sassPaths = [
-        'bower_components/mobules/scss'
+        'bower_components/foundation-sites/scss',
+        'bower_components/motion-ui/src'
     ];
 
     //gulp.src('src/public/css/main.globbed.scss')
