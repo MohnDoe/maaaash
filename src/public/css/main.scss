@@ -2,6 +2,10 @@
 @import 'foundation/foundation-settings';
 @import 'foundation/foundation-import';
 
+
+$size-bottom-bar : 70px;
+
+
 [ui-view]
 {
 	height: 100%;
@@ -13,20 +17,226 @@
 #container-battle
 {
 	height : 100%;
+	background-color : #222;
+	color : white;
 }
 
 #container-battle
 {
+	height : calc(100% - 70px);
 	.container-channel
 	{
 		height: 100%;
 
 		.container-infos 
 		{
-			.channel-image
+			position:relative;
+
+			.container-gradient
 			{
-				width: 100%;
+				content:' ';
+				position:absolute;
+				left:0; right:0;
+				bottom: 0; top:0;
+				z-index:2;
+				background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(0,0,0,.3)),
+			    color-stop(100%, rgba(0,0,0,.5)));
+			    background-image: -moz-linear-gradient(bottom, rgba(0,0,0,.5) 0%, rgba(0,0,0,.3) 100%);
+			}
+
+			.container-image-channel
+			{
+				width:100%;
 				height: auto;
+				position : relative;
+				z-index: 1;
+
+				.channel-image
+				{
+					width: 100%;
+					height: auto;
+				}
+			}
+
+			.container-informations
+			{
+				z-index: 3;
+				position: absolute;
+				left:0; right:0;
+				bottom: 0; top:0;
+
+				color : white;
+				text-align:center;
+				vertical-align: middle;
+				display:inline-block;
+
+				span 
+				{
+					width: 100%;
+				}
+
+				.channel-view-count, .channel-sub-count
+				{
+					opacity: .5;
+					position:absolute;
+					left:0; right:0;
+
+					.small
+					{
+						font-size: 18px;
+						text-transform: uppercase;
+						clear:both;
+						line-height:1em;
+					}
+					.count 
+					{
+						font-size:42px;
+						clear:both;
+						line-height:1em;
+					}
+
+				}
+				.channel-view-count
+				{
+					bottom: 10px;
+				}
+				.channel-sub-count
+				{
+					top: 10px;
+				}
+
+				.container-name-channel
+				{
+					position:absolute;
+					z-index:2;
+					top:0;
+					right:0;
+					bottom:0;
+					left:0;
+					height: 100%;
+					width:100%;
+					display:table;
+					text-overflow:clip;
+
+					.channel-name
+					{
+						font-size: 24px;
+						line-height: 1em;
+						font-weight: 900;
+						text-transform: uppercase;
+						display:table-cell;
+ 						vertical-align:middle;
+ 						max-width:100%;
+					}
+					
+				}
+			}
+		}
+	}
+}
+
+#container-bottom{
+	overflow : hidden;
+	height: $size-bottom-bar;
+	position : absolute;
+	bottom: 0;
+	left: 0; right: 9;
+	background-color : #f0f0f0;
+	color : black;
+
+	padding : 15px;
+	width: 100%;
+
+	.container-user
+	{
+		height : 100%;
+		position : relative;
+		float : left;
+
+		.container-image-user
+		{
+			height : 100%;
+			width : $size-bottom-bar - 30px;
+
+			.image-user
+			{
+				width : 100%;
+				height: 100%;
+				display: block;
+			}
+		}
+	}
+
+	.container-level-progress 
+	{
+		position: relative;
+		float: left;
+		width: calc(100% - 40px);
+		padding-left: 20px;
+
+		.top-progress
+		{
+			width: 100%;
+			position : relative;
+			float: left;
+
+			color : black;
+			margin-bottom: 5px;
+			height: 16px;
+
+			.name-level
+			{
+				font-size: 16px;
+				opacity: 0.87;
+				text-transform: uppercase;
+				font-weight: bold;
+			}
+
+			.percent-progress
+			{
+				opacity: 0.54;
+				float: right;
+				font-size: 13px;
+			}
+		}
+
+		.container-progress-bar
+		{
+			width: 100%;
+			height : 3px;
+			position : relative;
+			float : left;
+
+			background-color : rgba(0,0,0,.1);
+
+			margin-bottom: 5px;
+
+			.fill
+			{
+				height: 100%;
+				width: 10%;
+				position : absolute;
+				left: 0;
+				background-color : #2980b9;
+			}
+		}
+		.progression-level
+		{
+			font-size : 13px;
+			height: 13px;
+			position : relative;
+			float : left;
+			line-height: 1em !important;
+
+			.current-points 
+			{
+				height: 13px !important;
+				opacity : .87;
+			}
+			.next-level-points 
+			{
+				height: 13px !important;
+				opacity : .54;
 			}
 		}
 	}

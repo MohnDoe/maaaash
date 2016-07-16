@@ -1,1 +1,20 @@
-<p>LEOELELELELELLE</p>
+<div id="container-bottom" ng-controller="bottomUserCtrl as bottomUser">
+	<div class="container-user">
+		<div class="container-image-user">
+			<img ng-src="{{user.url_image}}" class="image-user"/>
+		</div>
+	</div>
+	<div class="container-level-progress">
+		<div class="top-progress">
+			<span class="name-level">Level 1</span>
+			<span class="percent-progress">78%</span>		
+		</div>
+		<div class="container-progress-bar">
+			<div class="fill"></div>
+		</div>
+		<span class="progression-level">
+			<span class="current-points">{{user.points | number}}</span>
+			<span class="next-level-points">/{{1324 | number}} points</span>
+		</span>
+	</div>
+</div>

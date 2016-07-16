@@ -1,5 +1,6 @@
 angular.module('App')
 	.controller('bottomUserCtrl', function(Login, $rootScope, $scope) {
+
 		$scope.user = null;
 
 		$scope.initUser = function() {
@@ -10,8 +11,6 @@ angular.module('App')
 			$scope.user.points = points.total_points;
 			console.log($scope.user.points);
 		})
-
-
 
 		$rootScope.$on('statusUpdated', function() {
 			$scope.initUser();
