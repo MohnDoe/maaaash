@@ -28,7 +28,6 @@ passport.use(new YoutubeV3Strategy({
 		}
 	},
 	function(accessToken, refreshToken, profile, done) {
-		// console.log(profile);
 		// console.log('END PROFIL-----------');
 		// console.log(accessToken);
 		// console.log(refreshToken);
@@ -56,6 +55,10 @@ passport.use(new YoutubeV3Strategy({
 			if (userinfo.email.split('@')[1] != 'pages.plusgoogle.com') {
 				email = userinfo.email;
 			}
+			// var thumbnails = null; 
+			// if(profile._json.items[0].snippet.thumbnails){
+			// 	thumbnails = profile._json.items[0].snippet.thumbnails;
+			// }
 			// console.log(userinfo);
 			Models.user.findOrCreate({
 				where: {
@@ -64,6 +67,7 @@ passport.use(new YoutubeV3Strategy({
 				defaults: {
 					display_name: profile.displayName,
 					// username: profile.username,
+					url_image: userinfo.picture,
 					email: email,
 					plusgoogle_email: userinfo.email,
 					plusgoogle_id: userinfo.id,
@@ -76,6 +80,7 @@ passport.use(new YoutubeV3Strategy({
 					user.update({
 						youtube_id: profile.id,
 						email: email,
+						url_image: userinfo.picture,
 						plusgoogle_email: userinfo.email,
 						plusgoogle_id: userinfo.id,
 						access_token_youtube: accessToken,

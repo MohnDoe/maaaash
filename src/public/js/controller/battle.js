@@ -12,7 +12,7 @@ angular.module('App')
 				callback: function(res) {
 					$scope.battle = res.data.vote;
 					$scope.loading = false;
-					console.log($scope.battle);
+					// console.log($scope.battle);
 				}
 			});
 		}
@@ -24,7 +24,11 @@ angular.module('App')
 				data: {
 					winner: winner
 				},
-				callback: function(data) {
+				callback: function(res) {
+					console.log(res);
+					if (res.data.points) {
+						$rootScope.$emit('pointsChanged', res.data.points);
+					}
 					$scope.getNewBattle();
 				}
 			})

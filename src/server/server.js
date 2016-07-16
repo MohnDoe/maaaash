@@ -64,7 +64,9 @@ app.use(function(req, res) {
 
 
 
-Models.sequelize.sync()
+Models.sequelize.sync({
+		// force: true
+	})
 	.then(function() {
 		app.listen(Config.server.port, function() {
 			console.log('MAAAASH app listening on port %s', Config.server.port);

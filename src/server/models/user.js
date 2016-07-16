@@ -56,6 +56,10 @@ module.exports = function(sequelize, DataTypes) {
         last_synced: {
             type: DataTypes.DATE,
             default: null
+        },
+        url_image: {
+            type: DataTypes.STRING,
+            default: null
         }
     }, {
         // TODO : hook bcrypt password
@@ -102,7 +106,10 @@ module.exports = function(sequelize, DataTypes) {
                         'refresh_token_youtube',
                         'plusgoogle_id',
                         'youtube_id',
-                        'password'
+                        'password',
+                        'email',
+                        'username',
+                        'id'
                     ]
                 );
                 return values;

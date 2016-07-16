@@ -7,6 +7,7 @@ angular.module('App').service('Login', function($rootScope, $interval, Api, $loc
     var loaded = false;
 
     function updateStatus(afterLogin) {
+        var afterLogin = afterLogin;
         console.log('Updating status!');
         Api.call({
             url: 'user/',
@@ -15,10 +16,11 @@ angular.module('App').service('Login', function($rootScope, $interval, Api, $loc
                 user = data.data.user || null;
                 status = data.data.status;
                 loaded = true;
+                console.log(user);
 
                 JWT = data.data.jwt_token;
                 store.set('jwt', data.data.jwt_token);
-
+                $rootScope.$emit('statusUpdated');
                 if (afterLogin) {
                     if (status == 'connected') {
                         if (user.last_synced === null) {
@@ -47,7 +49,7 @@ angular.module('App').service('Login', function($rootScope, $interval, Api, $loc
     });
 
     function logWithYoutube() {
-        console.log("Login with youtube");
+        // console.log("Login with youtube");
         var popup = window.open("auth/youtube", 'socialLogin', 'width=450,height=600,location=0,menubar=0,resizable=1,scrollbars=0,status=0,titlebar=0,toolbar=0');
 
         try {
@@ -68,14 +70,10 @@ angular.module('App').service('Login', function($rootScope, $interval, Api, $loc
     return {
         isLogged: function() {
             var jwt = store.get('jwt');
-            console.log(jwt);
-            console.log(!!jwt && jwt != 'undefined' && typeof jwt != 'undefined')
+            // console.log(jwt);
+            // console.log(!!jwt && jwt != 'undefined' && typeof jwt != 'undefined')
             return (!!jwt && jwt != 'undefined' && typeof jwt != 'undefined');
         },
-        // isLogged: function() {
-        //     console.log(!!user);
-        //     return !!user;
-        // },
         logOut: function() {
             Api.call({
                 url: 'login/logout',
