@@ -25,7 +25,6 @@ angular.module('App')
 					winner: winner
 				},
 				callback: function(res) {
-					console.log(res);
 					if (res.data.points) {
 						$rootScope.$emit('pointsChanged', res.data.points);
 					}

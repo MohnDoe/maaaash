@@ -32,6 +32,7 @@ function init() {
 	var step = POINTS.ACTIONS['NORMAL_VOTE'] * 10;
 	var levels = [];
 	for (var i = 0; i < NUMBER_LEVELS; i++) {
+		var name = null;
 		if (i % 5 == 0 && i != 0) {
 			// console.log("step increase");
 			step += POINTS.ACTIONS['NORMAL_VOTE'] * 10;
@@ -46,9 +47,12 @@ function init() {
 			pointsNeeded = levels[i - 1].points + step;
 			pointsNeeded = Math.round(pointsNeeded);
 		}
+		if (LEVELS_NAMES[i]) {
+			name = LEVELS_NAMES[i];
+		}
 		levels[i] = {
 			number: i + 1,
-			name: LEVELS_NAMES[i],
+			name: name,
 			points: pointsNeeded
 		};
 	}

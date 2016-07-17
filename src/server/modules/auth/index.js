@@ -127,7 +127,8 @@ module.exports = {
                         $name: user.display_name,
                         $email: email || user.plusgoogle_email,
                         'Points': 0,
-                        '# of Votes': 0
+                        '# of Votes': 0,
+                        'Groupes': 'Alpha Tester'
                     });
 
 

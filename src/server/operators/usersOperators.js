@@ -297,7 +297,8 @@ function vote(hash_id, winner) {
 					'Channel #2 | ID': _vote.Channel2.id,
 					'Winner Side': _winner,
 					'Points Earned': points.earned_points,
-					'Time to vote': (new Date() - _vote.created_at)
+					'Time to vote': (new Date() - _vote.created_at),
+					'Date vote created': _vote.created_at
 				});
 				mixpanel.people.increment(_vote.user.id, '# of Votes');
 				mixpanel.people.increment(_vote.user.id, 'Points', points.earned_points);
