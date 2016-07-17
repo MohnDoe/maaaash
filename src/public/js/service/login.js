@@ -16,10 +16,10 @@ angular.module('App').service('Login', function($rootScope, $interval, Api, $loc
                 user = data.data.user || null;
                 status = data.data.status;
                 loaded = true;
-                console.log(user);
 
-                // JWT = data.data.jwt_token;
-                // store.set('jwt', data.data.jwt_token);
+                JWT = data.data.jwt_token;
+                store.set('jwt', data.data.jwt_token);
+
                 $rootScope.$emit('statusUpdated');
                 if (afterLogin) {
                     if (status == 'connected') {

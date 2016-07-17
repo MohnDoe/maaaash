@@ -1,9 +1,12 @@
 angular.module('App')
 	.controller('bottomUserCtrl', function(Login, $rootScope, $scope) {
 
-		$scope.user = null;
+		$scope.user = {
+			points: 0,
+		};
 
 		$scope.initUser = function() {
+			console.log('initUser');
 			$scope.user = Login.getUser();
 		}
 
@@ -15,4 +18,6 @@ angular.module('App')
 		$rootScope.$on('statusUpdated', function() {
 			$scope.initUser();
 		});
+
+		$scope.initUser();
 	});
