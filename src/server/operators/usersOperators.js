@@ -2,10 +2,9 @@ var Promise = require('bluebird'),
 	_ = require('lodash'),
 	Sequelize = require('sequelize'),
 	jwt = require('jsonwebtoken');
-var Models = require('../models');
+var Models = require("../modules/models");
+var Config = require("../modules/config");
 var pointsOperators = require('./pointsOperators');
-
-var Config = require('../config/config');
 
 
 var Google = require('googleapis');
@@ -182,7 +181,7 @@ function getTwoRandomSubscriptions(user) {
 			.then(function(_user) {
 				return _user.getSubscriptions({
 					order: [
-						[Models.Sequelize.fn('RANDOM')]
+						[Sequelize.fn('RANDOM')]
 					],
 					limit: 2
 				})

@@ -1,4 +1,5 @@
-var Models = require('../models');
+var Models = require("../modules/models");
+var Config = require("../modules/config");
 var Promise = require('bluebird');
 
 function createChannel(data) {

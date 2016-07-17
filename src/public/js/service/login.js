@@ -10,7 +10,7 @@ angular.module('App').service('Login', function($rootScope, $interval, Api, $loc
         var afterLogin = afterLogin;
         console.log('Updating status!');
         Api.call({
-            url: 'user/',
+            url: 'user/status',
             callback: function(data) {
                 // console.log(data);
                 user = data.data.user || null;
@@ -18,8 +18,8 @@ angular.module('App').service('Login', function($rootScope, $interval, Api, $loc
                 loaded = true;
                 console.log(user);
 
-                JWT = data.data.jwt_token;
-                store.set('jwt', data.data.jwt_token);
+                // JWT = data.data.jwt_token;
+                // store.set('jwt', data.data.jwt_token);
                 $rootScope.$emit('statusUpdated');
                 if (afterLogin) {
                     if (status == 'connected') {
