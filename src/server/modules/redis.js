@@ -9,7 +9,7 @@ module.exports = {
         var that = this;
         return new Promise(function(resolve, reject) {
             that.client = client = Redis.createClient({
-                url: 'redis://h:pb0qql1fh8l09sbmekmk18bo9hn@ec2-79-125-15-126.eu-west-1.compute.amazonaws.com:13849'
+                url: Config.database.redis_url
             });
 
             client.on('ready', function() {
