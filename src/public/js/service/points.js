@@ -1,12 +1,18 @@
-angular.module('App').service('Points', function($rootScope, Api) {
+angular.module('App').service('Points', function($rootScope, Api, $q) {
 
 	var levels = null;
+	var loaded = false;
 
 	function init() {
 		Api.call({
 			url: 'level',
 			callback: function(res) {
+				console.log('levelsInitDone');
 				levels = res.data.levels;
+
+				loaded = true;
+				$rootScope.$emit('levelsInitDone');
+
 			}
 		})
 	}
@@ -28,6 +34,7 @@ angular.module('App').service('Points', function($rootScope, Api) {
 	return {
 		getLevelsByPoints: getLevelsByPoints,
 		getPercentage: getPercentage,
+		loaded: loaded
 	};
 
 });

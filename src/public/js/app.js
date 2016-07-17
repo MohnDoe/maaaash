@@ -47,18 +47,16 @@ angular.module('App', ['templates', 'ui.router', 'ngAnimate', 'ngRoute', 'angula
         });
 
     })
-    .run(function($rootScope, $state, $timeout, Login, Blocker, $location) {
+    .run(function($rootScope, $state, $timeout, Login, Blocker, $location, Points) {
         $rootScope.$state = $state;
         $rootScope.Login = Login;
         $rootScope.Blocker = Blocker;
+        $rootScope.Points = Points;
 
         $rootScope.$on("$stateChangeStart", function(event, next, current) {
             if (next.data.ensureAuthenticate) {
-                console.log('Need Authenticated user.');
                 if (!$rootScope.Login.isLogged()) {
-                    console.log('Dude is not logged');
                     event.preventDefault();
-                    // $location.path('/join');
                     $state.go('join');
                 }
             }
