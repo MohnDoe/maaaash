@@ -2,7 +2,7 @@ var Promise = require('bluebird');
 var _ = require('lodash');
 
 // var debugWeb = require('debug')('app:web');
-// var debugDB = require('debug')('app:db');
+var debugDB = require('debug')('app:db');
 
 var Config = require('./modules/config');
 
@@ -35,7 +35,7 @@ promises.push(Redis.init().then(function() {
 }));
 
 Promise.all(promises).then(function() {
-	console.log('Connected to Databases');
+	debugDB('Connected to Databases');
 	// Load and Sync models (return promises);
 	var Models = require('./modules/models');
 	return Models.init();
