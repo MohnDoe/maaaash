@@ -74,7 +74,7 @@ function setWinner(hash_id, winner) {
 	return new Promise(function(resolve, reject) {
 		return existsByHashID(hash_id)
 			.then(function(vote) {
-				if (!vote) {
+				if (!vote || vote.is_completed) {
 					resolve(false);
 				}
 				if (winner == 1) {

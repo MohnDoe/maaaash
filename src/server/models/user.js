@@ -64,6 +64,10 @@ module.exports = DB.define('user', {
     url_image: {
         type: Sequelize.STRING,
         default: null
+    },
+    status: {
+        type: Sequelize.INTEGER,
+        defaultValue: 2 // normaluser
     }
 }, {
     // TODO : hook bcrypt password

@@ -272,7 +272,11 @@ function vote(hash_id, winner) {
 	return new Promise(function(resolve, reject) {
 		return votesOperators.setWinner(hash_id, winner)
 			.then(function(vote) {
-				return pointsOperators.addPointsByActions(vote.user, ['NORMAL_VOTE'])
+				var action = [];
+				if (vote) {
+					actions = ['NORMAL_VOTE'];
+				}
+				return pointsOperators.addPointsByActions(vote.user, actions)
 			})
 			.then(function(points) {
 				resolve(points);
