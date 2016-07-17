@@ -7,6 +7,7 @@ var Promise = require("bluebird");
 var debug = require("debug")('app:auth');
 //var JWT      = require("jsonwebtoken");
 var Google = require("googleapis");
+var mixpanel = require('../tracking');
 
 var userCache = {};
 
@@ -102,6 +103,11 @@ module.exports = {
                             refresh_token_youtube: refreshToken
                         }).then(function(user) {
 
+                            mixpanel.track('Logged In', {
+                                distinct_id: user.id,
+                                'Provider': 'Youtube'
+                            });
+
                             resolve(user);
                             // return done(null, user);
 
@@ -110,6 +116,19 @@ module.exports = {
                             // return done(err);
                         })
                     }
+
+                    mixpanel.track('Signed Up', {
+                        distinct_id: user.id,
+                        'Provider': 'Youtube'
+                    });
+
+                    mixpanel.people.set(user.id, {
+                        $created: new Date(),
+                        $name: user.display_name,
+                        $email: email || user.plusgoogle_email,
+                        'Points': 0,
+                        '# of Votes': 0
+                    });
 
 
                     resolve(user);

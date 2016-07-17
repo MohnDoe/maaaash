@@ -5,6 +5,7 @@ var Promise = require('bluebird'),
 var Models = require("../modules/models");
 var Config = require("../modules/config");
 var pointsOperators = require('./pointsOperators');
+var mixpanel = require('../modules/tracking');
 
 
 var Google = require('googleapis');
@@ -115,6 +116,7 @@ function getAllChannelsSubed(user, allChannels, nextPageToken) {
 					return getAllChannelsSubed(user, allChannels, _channels.nextPageToken).then(resolve);
 				} else {
 					console.log('# channels total : ' + allChannels.length);
+					mixpanel.people.set(user.id, '# of Channels', allChannels.length);
 					resolve(allChannels);
 				}
 
@@ -272,13 +274,36 @@ function vote(hash_id, winner) {
 	return new Promise(function(resolve, reject) {
 		return votesOperators.setWinner(hash_id, winner)
 			.then(function(vote) {
-				var action = [];
+				_winner = winner;
+				_vote = vote;
+				var actions = [];
 				if (vote) {
 					actions = ['NORMAL_VOTE'];
 				}
 				return pointsOperators.addPointsByActions(vote.user, actions)
 			})
 			.then(function(points) {
+				mixpanel.track('Voted', {
+					distinct_id: _vote.user.id,
+					'Channel #1 | Name': _vote.Channel1.name,
+					'Channel #2 | Name': _vote.Channel2.name,
+					'Channel #1 | ID': _vote.Channel1.id,
+					'Channel #2 | ID': _vote.Channel2.id,
+					'Channel #1 | # of Subs': _vote.Channel1.subscriber_count,
+					'Channel #2 | # of Subs': _vote.Channel2.subscriber_count,
+					'Channel #1 | # of Views': _vote.Channel1.view_count,
+					'Channel #2 | # of Views': _vote.Channel2.view_count,
+					'Channel #1 | ID': _vote.Channel1.id,
+					'Channel #2 | ID': _vote.Channel2.id,
+					'Winner Side': _winner,
+					'Points Earned': points.earned_points,
+					'Time to vote': (new Date() - _vote.created_at)
+				});
+				mixpanel.people.increment(_vote.user.id, '# of Votes');
+				mixpanel.people.increment(_vote.user.id, 'Points', points.earned_points);
+				mixpanel.people.set(_vote.user.id, {
+					'Points': points.total_points
+				});
 				resolve(points);
 			})
 			.catch(function(err) {

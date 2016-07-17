@@ -53,5 +53,9 @@ module.exports = {
     },
     successCallbackURL: '/auth/success',
     failureCallbackURL: '/auth/failure'
+  },
+  mixpanel: {
+    token: process.env.MIXPANEL_TOKEN || 'c65413508db611d1e64eb52fbc4bd6fd',
+    api_secret: process.env.MIXPANEL_API_SECRET || 'dad3dea1a1483dc5b1f79e785c385b69'
   }
 }
