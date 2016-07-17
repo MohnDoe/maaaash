@@ -4,6 +4,7 @@ angular.module('App').service('Points', function($rootScope, Api, $q) {
 	var loaded = false;
 
 	function init() {
+
 		Api.call({
 			url: 'level',
 			callback: function(res) {
@@ -18,13 +19,16 @@ angular.module('App').service('Points', function($rootScope, Api, $q) {
 	}
 
 	function getLevelsByPoints(points) {
+		var deferred = $q.defer();
 		for (var i = 0; i < levels.length; i++) {
 			level = levels[i];
 			if (level.points >= points) {
-				return [levels[i - 1], levels[i]];
+				deferred.resolve([levels[i - 1], levels[i]]);
 			}
 		}
-		return [levels[1], levels[2]];
+		deferred.resolve([levels[1], levels[2]]);
+
+		return deferred.promise;
 	}
 
 	function getPercentage(currentLevel, nextLevel, points) {

@@ -21,10 +21,13 @@ angular.module('App')
 				points = points.total_points;
 			}
 			$scope.progress.points = points;
-			var levels = $rootScope.Points.getLevelsByPoints($scope.progress.points);
-			$scope.progress.level.current = levels[0];
-			$scope.progress.level.next = levels[1];
-			$scope.progress.level.progress = $rootScope.Points.getPercentage($scope.progress.level.current, $scope.progress.level.next, $scope.progress.points);
+			$rootScope.Points.getLevelsByPoints($scope.progress.points)
+				.then(function(levels) {
+					console.log(levels);
+					$scope.progress.level.current = levels[0];
+					$scope.progress.level.next = levels[1];
+					$scope.progress.level.progress = $rootScope.Points.getPercentage($scope.progress.level.current, $scope.progress.level.next, $scope.progress.points);
+				})
 		}
 
 		$rootScope.$on('pointsChanged', function(event, points) {
