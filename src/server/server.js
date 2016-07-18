@@ -82,6 +82,8 @@ Promise.all(promises).then(function() {
 		//Normal routing
 		require('./modules/routes');
 
+		require('./modules/leaderboard');
+
 	} catch (err) {
 		console.log(err);
 	}

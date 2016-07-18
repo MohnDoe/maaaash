@@ -15,8 +15,8 @@ module.exports = {
             },
             // logging: console.log,
             logging: false,
-            sync: true,
-            force: true,
+            // sync: true,
+            // force: true,
             define: {
                 syncOnAssociation: true,
                 charset: 'utf8', //utf8mb4 Allows for emoji but gives shit, sort out

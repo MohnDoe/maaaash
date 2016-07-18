@@ -283,6 +283,8 @@ function vote(hash_id, winner) {
 				return pointsOperators.addPointsByActions(vote.user, actions)
 			})
 			.then(function(points) {
+
+				//TRACKING SHIT
 				mixpanel.track('Voted', {
 					distinct_id: _vote.user.id,
 					'Channel #1 | Name': _vote.Channel1.name,
@@ -300,11 +302,8 @@ function vote(hash_id, winner) {
 					'Time to vote': (new Date() - _vote.created_at),
 					'Date vote created': _vote.created_at
 				});
-				mixpanel.people.increment(_vote.user.id, '# of Votes');
-				mixpanel.people.increment(_vote.user.id, 'Points', points.earned_points);
-				mixpanel.people.set(_vote.user.id, {
-					'Points': points.total_points
-				});
+
+				// LEADERBOARD SHIT
 				resolve(points);
 			})
 			.catch(function(err) {

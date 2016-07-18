@@ -3,6 +3,9 @@ var Config = require("../modules/config");
 var Promise = require('bluebird'),
 	_ = require('lodash');
 
+var Leaderboard = require('../modules/leaderboard');
+var mixpanel = require('../modules/tracking');
+
 var POINTS = {
 	ACTIONS: {
 		'NORMAL_VOTE': 10,
@@ -99,7 +102,24 @@ function addPoints(user, points) {
 				points: points
 			})
 			.then(function(user) {
-				resolve(user.points);
+				// TRACKING
+				_points = points;
+				_user = user;
+
+				mixpanel.people.increment(user.id, '# of Votes');
+				mixpanel.people.increment(user.id, 'Points', points);
+				mixpanel.people.set(user.id, {
+					'Points': user.points
+				});
+
+				return user.points;
+			})
+			.then(function(userPoints) {
+				_userPoints = userPoints;
+				return incrementLeaderboard(_user, _points);
+			})
+			.then(function() {
+				resolve(_userPoints);
 			})
 			.catch(function(err) {
 				reject(err);
@@ -126,6 +146,21 @@ function addPointsByActions(user, actions, bonus) {
 			})
 
 	})
+}
+
+function incrementLeaderboard(user, points) {
+	return new Promise(function(resolve, reject) {
+		Leaderboard.GlobalUsers.incr(user.id, points, function(err) {
+			reject(err);
+		});
+		Leaderboard.WeeklyUsers.incr(user.id, points, function(err) {
+			reject(err);
+		});
+		Leaderboard.DailyUsers.incr(user.id, points, function(err) {
+			reject(err);
+		});
+		resolve();
+	});
 }
 
 init();
