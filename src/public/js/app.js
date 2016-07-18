@@ -17,6 +17,7 @@ angular.module('App', ['templates', 'ui.router', 'ngAnimate', 'ngRoute', 'angula
                 url: '/join',
                 templateUrl: 'join/index.html',
                 controller: 'JoinCtrl as Join',
+                activetab: 'join',
                 data: {
                     ensureAuthenticate: false
                 }
@@ -25,6 +26,7 @@ angular.module('App', ['templates', 'ui.router', 'ngAnimate', 'ngRoute', 'angula
                 url: '/sync',
                 templateUrl: 'sync/index.html',
                 controller: 'SyncCtrl as Sync',
+                activetab: 'sync',
                 data: {
                     ensureAuthenticate: true
                 }
@@ -35,7 +37,8 @@ angular.module('App', ['templates', 'ui.router', 'ngAnimate', 'ngRoute', 'angula
                 controller: 'BattleCtrl as Battle',
                 data: {
                     ensureAuthenticate: true
-                }
+                },
+                activetab: 'battle'
             })
 
         $urlRouterProvider.otherwise(function($injector) {
@@ -52,7 +55,6 @@ angular.module('App', ['templates', 'ui.router', 'ngAnimate', 'ngRoute', 'angula
         $rootScope.Login = Login;
         $rootScope.Blocker = Blocker;
         $rootScope.Points = Points;
-
         $rootScope.$on("$stateChangeStart", function(event, next, current) {
             if (next.data.ensureAuthenticate) {
                 if (!$rootScope.Login.isLogged()) {

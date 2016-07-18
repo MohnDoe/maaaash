@@ -17,13 +17,14 @@
 
 </head>
 <body ng-cloak>
-    <div class="mdl-layout mdl-js-layout">
+    <div class="mdl-layout mdl-js-layout" ng-class="{ 'mdl-layout--no-drawer-button' : !Login.isLogged()}">
 
-        <header ng-include="'header.html'" class="mdl-layout__header mdl-layout__header--transparent"></header>
+        <header ng-include="'header.html'" class="mdl-layout__header mdl-layout__header--transparent" ng-show="Login.isLogged()"></header>
 
         <div ng-include="'drawer.html'" class="mdl-layout__drawer"></div>
 
-        <main class="mdl-layout__content main-content" ui-view></main>
+        <main class="mdl-layout__content main-content" ui-view ng-class="{ withBottom : Login.isLogged()}"></main>
+        <div ng-include="'bottom.html'" id="container-bottom" ng-show="Login.isLogged() && $state.current.activetab != 'sync'" ng-controller="bottomUserCtrl as bottomUser"></div>
     </div>
     
     <script src="/js/vendor.js"></script>

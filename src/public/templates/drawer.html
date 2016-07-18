@@ -1,8 +1,6 @@
 
-<span class="mdl-layout-title">Title</span>
 <nav class="mdl-navigation">
-  <a class="mdl-navigation__link" href="">Link</a>
-  <a class="mdl-navigation__link" href="">Link</a>
-  <a class="mdl-navigation__link" href="">Link</a>
-  <a class="mdl-navigation__link" href="">Link</a>
+  <a class="mdl-navigation__link" ng-class="{active: $state.current.activetab == 'battle'}" href="/">Battle</a>
+  <a class="mdl-navigation__link" ng-class="{active: $state.current.activetab == 'leaderboard'}" href="/leaderboard">Leaderboard</a>
+  <a class="mdl-navigation__link" ng-class="{active: $state.current.activetab == 'top'}" href="/top">Top 10 channels</a>
 </nav>

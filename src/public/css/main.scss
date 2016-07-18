@@ -14,6 +14,10 @@ $size-bottom-bar : 70px;
 
 [ui-view]
 {
+	&.withBottom
+	{
+		height: calc(100% - 70px);
+	}
 	height: 100%;
 	width: 100%;
 	display: block;
@@ -28,10 +32,11 @@ header
 	height : 100%;
 	background-color : #EEE;
 	color : white;
+	z-index: 1;
 }
 
 .main-content 
-{
+{	
 	.button-none
 	{
 		position: absolute;
@@ -87,6 +92,7 @@ header
 
 	padding : 15px;
 	width: 100%;
+	z-index: 2;
 
 	.container-user
 	{
