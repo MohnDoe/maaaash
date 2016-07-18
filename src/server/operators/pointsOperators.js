@@ -97,6 +97,7 @@ function getPointsEarned(actions, bonus) {
 }
 
 function addPoints(user, points) {
+	var leaderboardsOperators = require('./leaderboardsOperators');
 	return new Promise(function(resolve, reject) {
 		return user.increment({
 				points: points
@@ -116,7 +117,7 @@ function addPoints(user, points) {
 			})
 			.then(function(userPoints) {
 				_userPoints = userPoints;
-				return incrementLeaderboard(_user, _points);
+				return leaderboardsOperators.incrementLeaderboard(_user, _points);
 			})
 			.then(function() {
 				resolve(_userPoints);
@@ -148,20 +149,7 @@ function addPointsByActions(user, actions, bonus) {
 	})
 }
 
-function incrementLeaderboard(user, points) {
-	return new Promise(function(resolve, reject) {
-		Leaderboard.GlobalUsers.incr(user.id, points, function(err) {
-			reject(err);
-		});
-		Leaderboard.WeeklyUsers.incr(user.id, points, function(err) {
-			reject(err);
-		});
-		Leaderboard.DailyUsers.incr(user.id, points, function(err) {
-			reject(err);
-		});
-		resolve();
-	});
-}
+
 
 init();
 

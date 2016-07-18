@@ -3,4 +3,5 @@ module.exports = {
 	'usersOperators': require('./usersOperators'),
 	'votesOperators': require('./votesOperators'),
 	'pointsOperators': require('./pointsOperators'),
+	'leaderboardsOperators': require('./leaderboardsOperators'),
 }

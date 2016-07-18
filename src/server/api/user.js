@@ -83,7 +83,7 @@ module.exports = {
                         res.status(500).json({
                             status: 'error',
                             message: 'Internal Error!'
-                        })
+                        });
                     })
             } else {
                 res.status(401).json({
