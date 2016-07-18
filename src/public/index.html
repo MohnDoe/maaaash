@@ -10,14 +10,21 @@
 
     <meta property="og:title" content="Maaaash" />
     <meta property="og:url" content="http://maaaash.com" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,900" rel="stylesheet">
     <link rel="stylesheet" href="/css/main.css">
     <base href="/">
 
 </head>
 <body ng-cloak>
+    <div class="mdl-layout mdl-js-layout">
 
-    <div ui-view></div>
+        <header ng-include="'header.html'" class="mdl-layout__header mdl-layout__header--transparent"></header>
+
+        <div ng-include="'drawer.html'" class="mdl-layout__drawer"></div>
+
+        <main class="mdl-layout__content main-content" ui-view></main>
+    </div>
     
     <script src="/js/vendor.js"></script>
     <script src="/js/templates.js"></script>

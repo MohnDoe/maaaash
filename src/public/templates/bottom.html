@@ -1,0 +1,29 @@
+<div class="container-user">
+	<div class="container-image-user">
+		<img ng-src="{{user.url_image}}" class="image-user"/>
+	</div>
+</div>
+<div class="container-level-progress">
+	<div class="top-progress">
+		<span class="name-level">Level {{progress.level.current.number}} - {{progress.level.current.name}}</span>
+		<span class="percent-progress">{{progress.level.progress}}%</span>		
+	</div>
+	<div class="container-progress-bar">
+		<div class="fill" style="width : {{progress.level.progress}}%"></div>
+	</div>
+	<span class="progression-level">
+		<span class="current-points">{{progress.points | number}}</span>
+		<span class="next-level-points">/{{progress.level.next.points | number}} points</span>
+	</span>
+</div>
+<div class="container-button-bottom">
+	<button id="button-bottom-bar"
+        class="mdl-button mdl-js-button mdl-button--icon">
+	  <i class="material-icons">more_vert</i>
+	</button>
+</div>
+<ul class="mdl-menu mdl-menu--top-right mdl-js-menu mdl-js-ripple-effect"
+    data-mdl-for="button-bottom-bar">
+  <li disabled class="mdl-menu__item">Sync channels</li>
+  <li class="mdl-menu__item">Log Out</li>
+</ul>

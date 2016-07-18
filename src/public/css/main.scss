@@ -1,10 +1,16 @@
 @charset 'UTF-8';
-@import 'foundation/foundation-settings';
-@import 'foundation/foundation-import';
+// @import 'foundation/foundation-settings';
+// @import 'foundation/foundation-import';
+@import 'material-design-lite';
+// @include material-design-lite;
 
 
 $size-bottom-bar : 70px;
 
+*
+{
+ box-sizing:border-box;
+}
 
 [ui-view]
 {
@@ -12,13 +18,28 @@ $size-bottom-bar : 70px;
 	width: 100%;
 	display: block;
 }
-
+header
+{
+	position: absolute;
+}
 #container-join,
 #container-battle
 {
 	height : 100%;
-	background-color : #222;
+	background-color : #EEE;
 	color : white;
+}
+
+.main-content 
+{
+	.button-none
+	{
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		margin-top : -54px;
+		margin-left : -77px;
+	}
 }
 
 #container-battle
@@ -137,13 +158,12 @@ $size-bottom-bar : 70px;
 }
 
 #container-bottom{
-	overflow : hidden;
 	height: $size-bottom-bar;
 	position : absolute;
 	bottom: 0;
 	left: 0; right: 9;
-	background-color : #f0f0f0;
-	color : black;
+	background-color : #111;
+	color : white;
 
 	padding : 15px;
 	width: 100%;
@@ -172,16 +192,15 @@ $size-bottom-bar : 70px;
 	{
 		position: relative;
 		float: left;
-		width: calc(100% - 40px);
+		width: calc(100% - 100px);
 		padding-left: 20px;
+		margin-right: 20px;
 
 		.top-progress
 		{
 			width: 100%;
 			position : relative;
 			float: left;
-
-			color : black;
 			margin-bottom: 5px;
 			height: 16px;
 
@@ -208,7 +227,7 @@ $size-bottom-bar : 70px;
 			position : relative;
 			float : left;
 
-			background-color : rgba(0,0,0,.1);
+			background-color : rgba(255,255,255,.1);
 
 			margin-bottom: 5px;
 
@@ -219,6 +238,7 @@ $size-bottom-bar : 70px;
 				position : absolute;
 				left: 0;
 				background-color : #2980b9;
+				transition: 250ms;
 			}
 		}
 		.progression-level
@@ -240,5 +260,14 @@ $size-bottom-bar : 70px;
 				opacity : .54;
 			}
 		}
+	}
+
+	.container-button-bottom
+	{
+		width: 40px;
+		height: 40px;
+		padding: 4px;
+		position:relative;
+		float: left;
 	}
 }

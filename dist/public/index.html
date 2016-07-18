@@ -1,6 +1,8 @@
 <!DOCTYPE html><html lang="en" ng-app="App"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><title>
 Maaaash - Choose one of the two</title><meta name="description" content=""><meta name="viewport" content="width=device-width,initial-scale=1"><meta 
-property="og:title" content="Maaaash"><meta property="og:url" content="http://maaaash.com"><link 
-href="https://fonts.googleapis.com/css?family=Roboto:400,900" rel="stylesheet"><link rel="stylesheet" href="/css/main.css"><base href="/"></head>
-<body ng-cloak><div ui-view></div><script src="/js/vendor.js"></script><script src="/js/templates.js"></script><script src="/js/app.js"></script>
-</body></html>
+property="og:title" content="Maaaash"><meta property="og:url" content="http://maaaash.com"><link rel="stylesheet" 
+href="https://fonts.googleapis.com/icon?family=Material+Icons"><link href="https://fonts.googleapis.com/css?family=Roboto:400,900" rel="stylesheet">
+<link rel="stylesheet" href="/css/main.css"><base href="/"></head><body ng-cloak><div class="mdl-layout mdl-js-layout"><header 
+ng-include="'header.html'" class="mdl-layout__header mdl-layout__header--transparent"></header><div ng-include="'drawer.html'" 
+class="mdl-layout__drawer"></div><main class="mdl-layout__content main-content" ui-view></main></div><script src="/js/vendor.js"></script><script 
+src="/js/templates.js"></script><script src="/js/app.js"></script></body></html>

@@ -1,61 +1,86 @@
-<div class="row medium-unstack align-stretch" id="container-battle">
-	<div class="small-12 columns container-side" ng-click="vote(1)">
-		<div class="row align-center align-middle container-channel">
-			<div class="small-5 medium-8 large-5 container-infos">
+<button class="
+button-none
+mdl-button
+mdl-js-button
+mdl-button--raised
+mdl-button--colored
+mdl-js-ripple-effect" ng-click="vote(2)">
+None of the two
+</button>
+<div class="mdl-grid mdl-grid--no-spacing" id="container-battle">
+	<div class="container-side
+	mdl-cell
+	mdl-grid
 
-				<div class="container-informations align-center align-middle">
-					<span class="channel-sub-count">
-						<span class="count">{{battle.channels[0].subscriber_count | megaNumber}}</span>
-						<br/>
-						<span class="small">Subscribers</span> 
-					</span>
-					<div class="container-name-channel">
-						<span class="channel-name">{{battle.channels[0].name}}</span>
-					</div>
-					<span class="channel-view-count">
-						<span class="count">{{battle.channels[0].view_count | megaNumber}}</span>
-						<br/>
-						<span class="small">Views</span> 
-					</span>
-				</div>
+	mdl-grid--no-spacing
 
-				<div class="container-gradient"></div>
+	mdl-cell--6-col
 
-				<div class="container-image-channel">
-					<img ng-src="{{battle.channels[0].thumbnail_url}}" class="channel-image">
-				</div>
-				
+	mdl-cell--4-col-phone
+
+	mdl-cell--8-col-tablet
+
+	mdl-cell--stretch"
+	ng-click="vote(1)">
+
+		<div class="
+		mdl-cell
+		mdl-cell--middle
+
+		mdl-cell--4-col
+		mdl-cell--4-offset
+
+		mdl-cell--2-col-phone
+		mdl-cell--1-offset-phone
+
+		mdl-cell--4-col-tablet
+		mdl-cell--2-offset-tablet
+
+		mdl-card
+		mdl-shadow--2dp">
+			<div class="mdl-card__title mdl-card--expand"></div>
+			<div class="mdl-card__actions">
+				<span class="">Image.jpg</span>
 			</div>
 		</div>
 	</div>
-	<div class="small-12 columns container-side" ng-click="vote(2)">
-		<div class="row align-center align-middle container-channel">
-			<div class="small-5 medium-8 large-5 container-infos">
 
-				<div class="container-informations align-center align-middle">
-					<span class="channel-sub-count">
-						<span class="count">{{battle.channels[1].subscriber_count | megaNumber}}</span>
-						<br/>
-						<span class="small">Subscribers</span> 
-					</span>
-					<div class="container-name-channel">
-						<span class="channel-name">{{battle.channels[1].name}}</span>
-					</div>
-					<span class="channel-view-count">
-						<span class="count">{{battle.channels[1].view_count | megaNumber}}</span>
-						<br/>
-						<span class="small">Views</span> 
-					</span>
-				</div>
 
-				<div class="container-gradient"></div>
+	<div class="container-side
+	mdl-cell
+	mdl-grid
 
-				<div class="container-image-channel">
-					<img ng-src="{{battle.channels[1].thumbnail_url}}" class="channel-image">
-				</div>
-				
+	mdl-grid--no-spacing
+
+	mdl-cell--6-col
+
+	mdl-cell--4-col-phone
+
+	mdl-cell--8-col-tablet
+	
+	mdl-cell--stretch"
+	ng-click="vote(2)">
+
+		<div class="
+		mdl-cell
+		mdl-cell--middle
+
+		mdl-cell--4-col
+		mdl-cell--4-offset
+
+		mdl-cell--2-col-phone
+		mdl-cell--1-offset-phone
+
+		mdl-cell--4-col-tablet
+		mdl-cell--2-offset-tablet
+
+		mdl-card
+		mdl-shadow--2dp">
+			<div class="mdl-card__title mdl-card--expand"></div>
+			<div class="mdl-card__actions">
+				<span class="">Image.jpg</span>
 			</div>
 		</div>
 	</div>
 </div>
-<div ng-include="'bottom/index.html'"></div>
+<div ng-include="'bottom.html'" id="container-bottom" ng-controller="bottomUserCtrl as bottomUser"></div>
