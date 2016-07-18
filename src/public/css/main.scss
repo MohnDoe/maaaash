@@ -47,111 +47,29 @@ header
 	height : calc(100% - 70px);
 	.container-channel
 	{
-		height: 100%;
+		transition:250ms;
+		color: white !important;
 
-		.container-infos 
+		.background-image-channel
 		{
+			background-size: cover;
+			background-position:center;
+			height: 0;
+			padding-top: 100%;
 			position:relative;
 
-			.container-gradient
+			&:before
 			{
-				content:' ';
+				content: ' ';
 				position:absolute;
-				left:0; right:0;
-				bottom: 0; top:0;
-				z-index:2;
-				background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(0,0,0,.3)),
-			    color-stop(100%, rgba(0,0,0,.5)));
-			    background-image: -moz-linear-gradient(bottom, rgba(0,0,0,.5) 0%, rgba(0,0,0,.3) 100%);
-			}
-
-			.container-image-channel
-			{
-				width:100%;
-				height: auto;
-				position : relative;
+				left:0; right:0; bottom:0; top:0;
 				z-index: 1;
-
-				.channel-image
-				{
-					width: 100%;
-					height: auto;
-				}
+				background-color: red;
 			}
-
-			.container-informations
+			.channel-name 
 			{
-				z-index: 3;
-				position: absolute;
-				left:0; right:0;
-				bottom: 0; top:0;
-
-				color : white;
-				text-align:center;
-				vertical-align: middle;
-				display:inline-block;
-
-				span 
-				{
-					width: 100%;
-				}
-
-				.channel-view-count, .channel-sub-count
-				{
-					opacity: .5;
-					position:absolute;
-					left:0; right:0;
-					display:none;
-
-					.small
-					{
-						font-size: 18px;
-						text-transform: uppercase;
-						clear:both;
-						line-height:1em;
-					}
-					.count 
-					{
-						font-size:42px;
-						clear:both;
-						line-height:1em;
-					}
-
-				}
-				.channel-view-count
-				{
-					bottom: 10px;
-				}
-				.channel-sub-count
-				{
-					top: 10px;
-				}
-
-				.container-name-channel
-				{
-					position:absolute;
-					z-index:2;
-					top:0;
-					right:0;
-					bottom:0;
-					left:0;
-					height: 100%;
-					width:100%;
-					display:table;
-					text-overflow:clip;
-
-					.channel-name
-					{
-						font-size: 24px;
-						line-height: 1em;
-						font-weight: 900;
-						text-transform: uppercase;
-						display:table-cell;
- 						vertical-align:middle;
- 						max-width:100%;
-					}
-					
-				}
+				color:white;
+				z-index: 2;
 			}
 		}
 	}
