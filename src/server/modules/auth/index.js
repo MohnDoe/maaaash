@@ -8,7 +8,7 @@ var debug = require("debug")('app:auth');
 //var JWT      = require("jsonwebtoken");
 var Google = require("googleapis");
 var mixpanel = require('../tracking');
-var Ops = require('../operators');
+var Ops = require('../../operators');
 
 var userCache = {};
 
