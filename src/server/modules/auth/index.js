@@ -8,6 +8,7 @@ var debug = require("debug")('app:auth');
 //var JWT      = require("jsonwebtoken");
 var Google = require("googleapis");
 var mixpanel = require('../tracking');
+var Ops = require('../operators');
 
 var userCache = {};
 
@@ -107,6 +108,8 @@ module.exports = {
                                 distinct_id: user.id,
                                 'Provider': 'Youtube'
                             });
+
+                            Ops.leaderboardsOperators.addToGlobal(user);
 
                             resolve(user);
                             // return done(null, user);

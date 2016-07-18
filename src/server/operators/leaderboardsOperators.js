@@ -78,7 +78,12 @@ function associateUsers(list) {
 	})
 }
 
+function addToGlobal(user) {
+	Leaderboard.GlobalUsers.add(user.id, user.points);
+}
+
 module.exports = {
 	incrementLeaderboard: incrementLeaderboard,
-	getLeaderboard: getLeaderboard
+	getLeaderboard: getLeaderboard,
+	addToGlobal: addToGlobal,
 }
