@@ -52,6 +52,7 @@ header
 	height : calc(100% - 70px);
 	.container-channel
 	{
+		min-height:0;
 		transition:250ms;
 		color: white !important;
 
@@ -228,6 +229,18 @@ header
 	{
 		background-color:white;
 		z-index: 2;
+
+		.user-avatar
+		{
+			background-size: cover;
+			background-position: center;
+		}
+
+		.leaderboard-spinner
+		{
+			margin: 75px 0;
+			margin-left: calc(50% - 14px);
+		}
 	}
 
 }

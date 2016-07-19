@@ -1,7 +1,7 @@
 <div id="container-leaderboard" class="mdl-grid mdl-grid--no-spacing">
 	<div class="container-header-leaderboard mdl-cell mdl-cell--12-col mdl-shadow--2dp">
 		<h2 class="big-title">Leaderboard</h2>
-		<h6 class="subtitle">Global</h6>
+		<h6 class="subtitle">{{leaderboard.name}}</h6>
 	</div>
 	<ul class="
 	mdl-list
@@ -17,124 +17,18 @@
 	list-leaderboard
 	mdl-shadow--4dp
 	">
-		<li class="mdl-list__item mdl-list__item--two-line">
+		<div class="mdl-spinner mdl-js-spinner is-active leaderboard-spinner" ng-show="loading"></div>
+		<li class="mdl-list__item mdl-list__item--two-line user-leaderboard" ng-repeat='u in leaderboard.users' ng-show = "!loading">
 			<span class="mdl-list__item-primary-content">
 				<div class="
 					mdl-list__item-avatar
 					mdl-badge
-					mdl-badge--overlap"
-					data-badge="1""
-					style="background-image:url('https://unsplash.it/40?random');"></div>
-				<span>Bryan Cranston</span>
-				<span class="mdl-list__item-sub-title">+1,123 points</span>
-			</span>
-		</li>
-		<li class="mdl-list__item mdl-list__item--two-line">
-			<span class="mdl-list__item-primary-content">
-				<div class="
-					mdl-list__item-avatar
-					mdl-badge
-					mdl-badge--overlap"
-					data-badge="2""
-					style="background-image:url('https://unsplash.it/40?random');"></div>
-				<span>Aaron Paul</span>
-				<span class="mdl-list__item-sub-title">62 Episodes</span>
-			</span>
-		</li>
-		<li class="mdl-list__item mdl-list__item--two-line">
-			<span class="mdl-list__item-primary-content">
-				<div class="
-					mdl-list__item-avatar
-					mdl-badge
-					mdl-badge--overlap"
-					data-badge="3""
-					style="background-image:url('https://unsplash.it/40?random');"></div>
-				<span>Bob Odenkirk</span>
-				<span class="mdl-list__item-sub-title">62 Episodes</span>
-			</span>
-		</li>
-		<li class="mdl-list__item mdl-list__item--two-line">
-			<span class="mdl-list__item-primary-content">
-				<div class="
-					mdl-list__item-avatar
-					mdl-badge
-					mdl-badge--overlap"
-					data-badge="4""
-					style="background-image:url('https://unsplash.it/40?random');"></div>
-				<span>Bob Odenkirk</span>
-				<span class="mdl-list__item-sub-title">62 Episodes</span>
-			</span>
-		</li>
-		<li class="mdl-list__item mdl-list__item--two-line">
-			<span class="mdl-list__item-primary-content">
-				<div class="
-					mdl-list__item-avatar
-					mdl-badge
-					mdl-badge--overlap"
-					data-badge="5""
-					style="background-image:url('https://unsplash.it/40?random');"></div>
-				<span>Bob Odenkirk</span>
-				<span class="mdl-list__item-sub-title">62 Episodes</span>
-			</span>
-		</li>
-		<li class="mdl-list__item mdl-list__item--two-line">
-			<span class="mdl-list__item-primary-content">
-				<div class="
-					mdl-list__item-avatar
-					mdl-badge
-					mdl-badge--overlap"
-					data-badge="6""
-					style="background-image:url('https://unsplash.it/40?random');"></div>
-				<span>Bob Odenkirk</span>
-				<span class="mdl-list__item-sub-title">62 Episodes</span>
-			</span>
-		</li>
-		<li class="mdl-list__item mdl-list__item--two-line">
-			<span class="mdl-list__item-primary-content">
-				<div class="
-					mdl-list__item-avatar
-					mdl-badge
-					mdl-badge--overlap"
-					data-badge="7""
-					style="background-image:url('https://unsplash.it/40?random');"></div>
-				<span>Bob Odenkirk</span>
-				<span class="mdl-list__item-sub-title">62 Episodes</span>
-			</span>
-		</li>
-		<li class="mdl-list__item mdl-list__item--two-line">
-			<span class="mdl-list__item-primary-content">
-				<div class="
-					mdl-list__item-avatar
-					mdl-badge
-					mdl-badge--overlap"
-					data-badge="8""
-					style="background-image:url('https://unsplash.it/40?random');"></div>
-				<span>Bob Odenkirk</span>
-				<span class="mdl-list__item-sub-title">62 Episodes</span>
-			</span>
-		</li>
-		<li class="mdl-list__item mdl-list__item--two-line">
-			<span class="mdl-list__item-primary-content">
-				<div class="
-					mdl-list__item-avatar
-					mdl-badge
-					mdl-badge--overlap"
-					data-badge="9""
-					style="background-image:url('https://unsplash.it/40?random');"></div>
-				<span>Bob Odenkirk</span>
-				<span class="mdl-list__item-sub-title">62 Episodes</span>
-			</span>
-		</li>
-		<li class="mdl-list__item mdl-list__item--two-line">
-			<span class="mdl-list__item-primary-content">
-				<div class="
-					mdl-list__item-avatar
-					mdl-badge
-					mdl-badge--overlap"
-					data-badge="10""
-					style="background-image:url('https://unsplash.it/40?random');"></div>
-				<span>Bob Odenkirk</span>
-				<span class="mdl-list__item-sub-title">62 Episodes</span>
+					mdl-badge--overlap
+					user-avatar"
+					data-badge="{{$index+1}}""
+					style="background-image:url('{{u.user.url_image}}');"></div>
+				<span class="user-name">{{u.user.display_name}}</span>
+				<span class="mdl-list__item-sub-title user-earning">+{{u.earned_points}} points</span>
 			</span>
 		</li>
 	</ul>

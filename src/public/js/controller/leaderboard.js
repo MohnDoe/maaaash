@@ -5,12 +5,12 @@ angular.module('App')
 		$scope.loading = true;
 
 		$scope.get = function(type) {
+			$scope.loading = true;
 			Api.call({
 				url: 'leaderboard/' + type,
 				callback: function(res) {
-					console.log(res);
+					$scope.leaderboard = res.data.leaderboard;
 					$scope.loading = false;
-					// console.log($scope.battle);
 				}
 			});
 		}
