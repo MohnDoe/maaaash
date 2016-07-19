@@ -40,12 +40,12 @@ angular.module('App').service('Login', function($rootScope, $interval, Api, $win
 
     $rootScope.$on('successfullyLogged', function() {
         console.log('successfullyLogged');
-        $location.path('/');
+        $window.location.href = '/';
     });
 
     $rootScope.$on('successfullySignedUp', function() {
         console.log('successfullySignedUp');
-        $location.path('/sync');
+        $window.location.href = '/sync';
     });
 
     function logWithYoutube() {
