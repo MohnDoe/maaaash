@@ -109,7 +109,7 @@ module.exports = {
                                 'Provider': 'Youtube'
                             });
 
-                            Ops.leaderboardsOperators.addToGlobal(user);
+                            // Ops.leaderboardsOperators.addToGlobal(user);
 
                             resolve(user);
                             // return done(null, user);
@@ -118,21 +118,20 @@ module.exports = {
                             reject(err);
                             // return done(err);
                         })
+                    } else {
+                        mixpanel.track('Signed Up', {
+                            distinct_id: user.id,
+                            'Provider': 'Youtube'
+                        });
+
+                        mixpanel.people.set(user.id, {
+                            $created: new Date(),
+                            $name: user.display_name,
+                            $email: email || user.plusgoogle_email,
+                            'Groupes': 'Alpha Tester'
+                        });
                     }
 
-                    mixpanel.track('Signed Up', {
-                        distinct_id: user.id,
-                        'Provider': 'Youtube'
-                    });
-
-                    mixpanel.people.set(user.id, {
-                        $created: new Date(),
-                        $name: user.display_name,
-                        $email: email || user.plusgoogle_email,
-                        'Points': 0,
-                        '# of Votes': 0,
-                        'Groupes': 'Alpha Tester'
-                    });
 
 
                     resolve(user);
