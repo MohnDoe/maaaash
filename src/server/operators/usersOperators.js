@@ -274,6 +274,9 @@ function vote(hash_id, winner) {
 	return new Promise(function(resolve, reject) {
 		return votesOperators.setWinner(hash_id, winner)
 			.then(function(vote) {
+				if (!vote) {
+					return false;
+				}
 				_winner = winner;
 				_vote = vote;
 				var actions = [];
@@ -287,7 +290,9 @@ function vote(hash_id, winner) {
 				return pointsOperators.addPointsByActions(vote.user, actions)
 			})
 			.then(function(points) {
-
+				if (!points) {
+					resolve(null);
+				}
 				//TRACKING SHIT
 				mixpanel.track('Voted', {
 					distinct_id: _vote.user.id,
