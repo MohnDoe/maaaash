@@ -26,9 +26,9 @@
 					mdl-badge--overlap
 					user-avatar"
 					data-badge="{{$index+1}}""
-					style="background-image:url('{{u.user.url_image}}');"></div>
-				<span class="user-name">{{u.user.display_name}}</span>
-				<span class="mdl-list__item-sub-title user-earning">+{{u.earned_points}} points</span>
+					style="background-image:url('{{u.url_image}}');"></div>
+				<span class="user-name">{{u.display_name}}</span>
+				<span class="mdl-list__item-sub-title user-earning">+{{u.points | number}} points</span>
 			</span>
 		</li>
 	</ul>

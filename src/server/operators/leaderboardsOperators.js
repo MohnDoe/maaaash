@@ -26,7 +26,15 @@ function getLeaderboard(name, page) {
 	return new Promise(function(resolve, reject) {
 		var l = Leaderboard.GlobalUsers;
 		if (name == "GlobalUsers") {
-			l = Leaderboard.GlobalUsers;
+			console.log('Getting global');
+			// l = Leaderboard.GlobalUsers;
+			return getGlobalLeaderboard()
+				.then(function(listUsers) {
+					resolve(listUsers);
+				})
+				.catch(function(err) {
+					reject(err);
+				})
 		} else if (name == "WeeklyUsers") {
 			l = Leaderboard.WeeklyUsers;
 		} else if (name == "DailyUsers") {
@@ -58,10 +66,9 @@ function associateUsers(list) {
 				.then(function(_user) {
 					if (_user) {
 						theUser = {
-								user: _user,
-								earned_points: user.score
-							}
-							// _user.earned_points = user.score;
+							user: _user,
+							earned_points: user.score
+						}
 						listUsers.push(theUser);
 					}
 					done();
@@ -76,6 +83,22 @@ function associateUsers(list) {
 			resolve(listUsers);
 		})
 	})
+}
+
+function getGlobalLeaderboard() {
+	return new Promise(function(resolve, reject) {
+		return Models.user.findAll({
+				order: 'points DESC',
+				limit: 10
+			})
+			.then(function(listUsers) {
+				// console.log(listUsers);
+				resolve(listUsers);
+			})
+			.catch(function(err) {
+				reject(err);
+			})
+	});
 }
 
 function addToGlobal(user) {
