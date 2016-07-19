@@ -15,7 +15,7 @@ var elo = new Elo({ // ufscf K factors
 
 function generateVote(user) {
 	var usersOperators = require('./usersOperators');
-	console.log('GENERATING A VOTE FOR USER #' + user.id);
+	// console.log('GENERATING A VOTE FOR USER #' + user.id);
 	return new Promise(function(resolve, reject) {
 		return usersOperators.getTwoRandomSubscriptions(user)
 			.then(function(_channels) {
@@ -24,7 +24,7 @@ function generateVote(user) {
 				resolve(_newVote);
 			})
 			.catch(function(err) {
-				console.log('error here');
+				// console.log('error here');
 				console.log(err);
 				reject(err);
 			})
@@ -86,7 +86,7 @@ function setWinner(hash_id, winner) {
 					vote.setLooser(vote.Channel1);
 					// return vote.save();
 				} else {
-					resolve(false);
+					vote.is_draw = true;
 				}
 				// updateElo !
 				return updateElo(vote, winner);
@@ -116,7 +116,7 @@ function getVote(vote) {
 				resolve(_vote);
 			})
 			.catch(function(err) {
-				console.log('error here');
+				// console.log('error here');
 				console.log(err);
 				reject(err);
 			})
@@ -142,6 +142,9 @@ function updateElo(vote, winner) {
 				} else if (winner == 2) {
 					var new_elo_points_channel_1 = elo.newRating(odds_channel_1_wins, 0, elo_points_channel_1);
 					var new_elo_points_channel_2 = elo.newRating(odds_channel_2_wins, 1, elo_points_channel_2);
+				} else {
+					var new_elo_points_channel_1 = elo.newRating(odds_channel_1_wins, 0.5, elo_points_channel_1);
+					var new_elo_points_channel_2 = elo.newRating(odds_channel_2_wins, 0.5, elo_points_channel_2);
 				}
 
 				//update channels with their new ratings

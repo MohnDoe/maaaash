@@ -112,10 +112,10 @@ function getAllChannelsSubed(user, allChannels, nextPageToken) {
 				allChannels = allChannels.concat(_channels.items);
 
 				if (_channels.nextPageToken) { // todo get this false outta here dude
-					console.log('# channels so far : ' + allChannels.length);
+					// console.log('# channels so far : ' + allChannels.length);
 					return getAllChannelsSubed(user, allChannels, _channels.nextPageToken).then(resolve);
 				} else {
-					console.log('# channels total : ' + allChannels.length);
+					// console.log('# channels total : ' + allChannels.length);
 					mixpanel.people.set(user.id, '# of Channels', allChannels.length);
 					resolve(allChannels);
 				}
@@ -127,7 +127,7 @@ function getAllChannelsSubed(user, allChannels, nextPageToken) {
 }
 
 function saveChannels(user) {
-	console.log("SAVING CHANNELS FOR USER : " + user.id);
+	// console.log("SAVING CHANNELS FOR USER : " + user.id);
 	return new Promise(function(resolve, reject) {
 		return getAllChannelsSubed(user).then(function(channels) {
 			var pendingChannels = channels.length;
@@ -142,7 +142,7 @@ function saveChannels(user) {
 
 						}).then(function() {
 							if (--pendingChannels === 0) {
-								console.log("END SAVING CHANNELS FOR USER : " + _user.id);
+								// console.log("END SAVING CHANNELS FOR USER : " + _user.id);
 								_user.last_synced = new Date();
 
 								_user.save()
@@ -163,7 +163,7 @@ function saveChannels(user) {
 }
 
 function getTwoRandomSubscriptions(user) {
-	console.log("GETTING RANDOM CHANNELS FOR USER : " + user.id);
+	// console.log("GETTING RANDOM CHANNELS FOR USER : " + user.id);
 	// return Models.channel.findAll({
 	// 	order: [
 	// 		[Models.Sequelize.fn('RANDOM')]
@@ -189,8 +189,8 @@ function getTwoRandomSubscriptions(user) {
 				})
 			})
 			.then(function(channels) {
-				console.log("CHANNELS FOUNDED : " + channels.length);
-				console.log("END GETTING RANDOM CHANNELS");
+				// console.log("CHANNELS FOUNDED : " + channels.length);
+				// console.log("END GETTING RANDOM CHANNELS");
 				resolve(channels);
 			}).catch(function(err) {
 				reject(err);
@@ -200,15 +200,15 @@ function getTwoRandomSubscriptions(user) {
 
 function getVote(user) {
 	var votesOperators = require('./votesOperators');
-	console.log("GETTING A VOTE FOR USER #" + user.id);
+	// console.log("GETTING A VOTE FOR USER #" + user.id);
 	return new Promise(function(resolve, reject) {
 		return getNotCompletedVote(user)
 			.then(function(vote) {
 				if (vote) {
-					console.log('USING A NOT COMPLETED VOTE!');
+					// console.log('USING A NOT COMPLETED VOTE!');
 					return votesOperators.getVote(vote);
 				} else {
-					console.log('USING A BRAND NEW VOTE!');
+					// console.log('USING A BRAND NEW VOTE!');
 					return votesOperators.generateVote(user);
 				}
 			}).then(function(_vote) {
@@ -220,7 +220,7 @@ function getVote(user) {
 }
 
 function getNotCompletedVote(user) {
-	console.log("GETTING NOT COMPLETED VOTE FOR USER #" + user.id);
+	// console.log("GETTING NOT COMPLETED VOTE FOR USER #" + user.id);
 	return new Promise(function(resolve, reject) {
 		return Models.vote.findOne({
 			where: {
@@ -278,7 +278,11 @@ function vote(hash_id, winner) {
 				_vote = vote;
 				var actions = [];
 				if (vote) {
-					actions = ['NORMAL_VOTE'];
+					if (winner == 1 || winner == 2) {
+						actions = ['NORMAL_VOTE'];
+					} else {
+						actions = ['NEUTRAL_VOTE'];
+					}
 				}
 				return pointsOperators.addPointsByActions(vote.user, actions)
 			})

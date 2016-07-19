@@ -10,7 +10,7 @@ module.exports = {
 
         read: {
             handler: function(req, res, next) {
-                console.log('vote.read');
+                // console.log('vote.read');
                 if (req.params.id) {
                     Ops.votesOperators.existsByHashID(req.params.id)
                         .then(function(vote) {
@@ -39,7 +39,6 @@ module.exports = {
             // set a winner to a vote
             minUserStatus: 2,
             handler: function(req, res, next) {
-                console.log('vote.update');
                 if (req.params.id && req.body.winner) {
                     Ops.usersOperators.vote(req.params.id, req.body.winner)
                         .then(function(points) {
