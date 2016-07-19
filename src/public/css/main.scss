@@ -14,6 +14,7 @@ $size-bottom-bar : 70px;
 
 [ui-view]
 {
+	background-color : #EEE;
 	&.withBottom
 	{
 		height: calc(100% - 70px);
@@ -27,10 +28,9 @@ header
 	position: absolute;
 }
 #container-join,
-#container-battle
+#container-battle,
 {
 	height : 100%;
-	background-color : #EEE;
 	color : white;
 	z-index: 1;
 }
@@ -196,4 +196,38 @@ header
 		position:relative;
 		float: left;
 	}
+}
+
+#container-leaderboard
+{
+	height : auto;
+	color : white;
+	z-index: 1;
+	padding-bottom:70px;
+
+	.container-header-leaderboard
+	{
+		text-align: center;
+		background-color:rgb(63,81,181);
+		z-index: 2;
+		margin-bottom: -70px;
+		padding-bottom: 70px;
+
+		.big-title
+		{
+			margin-bottom:0;
+			
+		}
+		.subtitle
+		{
+			margin-top:0;
+			
+		}
+	}
+	.list-leaderboard
+	{
+		background-color:white;
+		z-index: 2;
+	}
+
 }

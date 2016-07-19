@@ -69,7 +69,6 @@ angular.module('App').service('Login', function($rootScope, $interval, Api, $loc
 
     return {
         isLogged: function() {
-            console.log('Checking Logging');
             var jwt = store.get('jwt');
             // console.log(jwt);
             // console.log(!!jwt && jwt != 'undefined' && typeof jwt != 'undefined')

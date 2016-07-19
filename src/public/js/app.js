@@ -40,6 +40,15 @@ angular.module('App', ['templates', 'ui.router', 'ngAnimate', 'ngRoute', 'angula
                 },
                 activetab: 'battle'
             })
+            .state('leaderboard', {
+                url: '/leaderboard',
+                templateUrl: 'leaderboard/index.html',
+                controller: 'LeaderboardCtrl as Leaderboard',
+                data: {
+                    ensureAuthenticate: true
+                },
+                activetab: 'leaderboard'
+            })
 
         $urlRouterProvider.otherwise(function($injector) {
             var $state;
