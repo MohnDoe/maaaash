@@ -1,5 +1,5 @@
 angular.module('App')
-	.controller('bottomUserCtrl', function(Login, $rootScope, $scope, Points) {
+	.controller('bottomUserCtrl', function(Login, $rootScope, $scope, Points, $location) {
 		$scope.user = {};
 
 		$scope.progress = {
@@ -23,11 +23,14 @@ angular.module('App')
 			$scope.progress.points = points;
 			$rootScope.Points.getLevelsByPoints($scope.progress.points)
 				.then(function(levels) {
-					console.log(levels);
 					$scope.progress.level.current = levels[0];
 					$scope.progress.level.next = levels[1];
 					$scope.progress.level.progress = $rootScope.Points.getPercentage($scope.progress.level.current, $scope.progress.level.next, $scope.progress.points);
 				})
+		}
+
+		$scope.logOut = function() {
+			$rootScope.Login.logOut();
 		}
 
 		$rootScope.$on('pointsChanged', function(event, points) {

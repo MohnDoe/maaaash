@@ -59,7 +59,7 @@ angular.module('App', ['templates', 'ui.router', 'ngAnimate', 'ngRoute', 'angula
         });
 
     })
-    .run(function($rootScope, $state, $timeout, Login, Blocker, $location, Points) {
+    .run(function($rootScope, $state, $timeout, Login, Blocker, $location, Points, $window) {
         $rootScope.$state = $state;
         $rootScope.Login = Login;
         $rootScope.Blocker = Blocker;
@@ -73,7 +73,7 @@ angular.module('App', ['templates', 'ui.router', 'ngAnimate', 'ngRoute', 'angula
             }
 
             if (next.url == '/join' && $rootScope.Login.isLogged()) {
-                $location.path('/');
+                $window.location.href = '/';
             }
         });
 

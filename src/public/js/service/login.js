@@ -1,4 +1,4 @@
-angular.module('App').service('Login', function($rootScope, $interval, Api, $location, store) {
+angular.module('App').service('Login', function($rootScope, $interval, Api, $window, store) {
 
     var user = null;
     var status = 'notconnected';
@@ -76,10 +76,11 @@ angular.module('App').service('Login', function($rootScope, $interval, Api, $loc
         },
         logOut: function() {
             Api.call({
-                url: 'login/logout',
+                url: 'user/logout',
                 method: 'post',
                 callback: updateStatus
-            })
+            });
+            $window.location.href = '/';
         },
         updateStatus: updateStatus,
         logWithYoutube: logWithYoutube,
