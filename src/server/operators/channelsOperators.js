@@ -50,8 +50,24 @@ function findOrCreateChannel(data) {
 	})
 }
 
+function getTopChannels() {
+	return new Promise(function(resolve, reject) {
+		return Models.channel.findAll({
+				order: 'elo_points DESC',
+				limit: 10
+			})
+			.then(function(channels) {
+				resolve(channels);
+			})
+			.catch(function(err) {
+				reject(err);
+			})
+	})
+}
+
 
 module.exports = {
 	findOrCreateChannel: findOrCreateChannel,
-	createChannel: createChannel
+	createChannel: createChannel,
+	getTopChannels: getTopChannels
 }

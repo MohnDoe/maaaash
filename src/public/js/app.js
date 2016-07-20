@@ -49,6 +49,15 @@ angular.module('App', ['templates', 'ui.router', 'ngAnimate', 'ngRoute', 'angula
                 },
                 activetab: 'leaderboard'
             })
+            .state('top', {
+                url: '/top',
+                templateUrl: 'top/index.html',
+                controller: 'TopCtrl as Top',
+                data: {
+                    ensureAuthenticate: true
+                },
+                activetab: 'top'
+            });
 
         $urlRouterProvider.otherwise(function($injector) {
             var $state;

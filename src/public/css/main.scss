@@ -50,36 +50,13 @@ header
 #container-battle
 {
 	height : calc(100% - 70px);
-	.container-channel
-	{
-		// min-height:0;
-		transition:250ms;
-		color: white !important;
-		cursor: pointer;
 
+	.container-channel 
+	{
 		.background-image-channel
 		{
-			background-size: cover;
-			background-position:center;
 			height: 0;
 			padding-top: 100%;
-			position:relative;
-
-			&:before
-			{
-				content: ' ';
-				position:absolute;
-				left:0; right:0; bottom:0; top:0;
-				z-index: 1;
-				background-color: rgba(0,0,0,.3);
-				background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(0,0,0,0)), color-stop(100%, rgba(0,0,0,.3)));		
-			    background-image: -moz-linear-gradient(bottom, rgba(0,0,0,.3) 0%, rgba(0,0,0,0) 100%);
-			}
-			.channel-name 
-			{
-				color:white;
-				z-index: 2;
-			}
 		}
 	}
 }
@@ -200,14 +177,15 @@ header
 	}
 }
 
-#container-leaderboard
+#container-leaderboard,
+#container-top-channels
 {
 	height : auto;
 	color : white;
 	z-index: 1;
 	padding-bottom:70px;
 
-	.container-header-leaderboard
+	.container-header
 	{
 		text-align: center;
 		background-color:rgb(63,81,181);
@@ -226,6 +204,12 @@ header
 			
 		}
 	}
+
+	
+}
+
+#container-leaderboard
+{
 	.list-leaderboard
 	{
 		background-color:white;
@@ -244,4 +228,69 @@ header
 		}
 	}
 
+}
+
+
+.container-channel
+	{
+		// min-height:0;
+		transition:250ms;
+		color: white !important;
+		cursor: pointer;
+
+		.background-image-channel
+		{
+			background-size: cover;
+			background-position:center;
+			position:relative;
+
+			&:before
+			{
+				content: ' ';
+				position:absolute;
+				left:0; right:0; bottom:0; top:0;
+				z-index: 1;
+				background-color: rgba(0,0,0,.3);
+				background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(0,0,0,0)), color-stop(100%, rgba(0,0,0,.3)));		
+			    background-image: -moz-linear-gradient(bottom, rgba(0,0,0,.3) 0%, rgba(0,0,0,0) 100%);
+			}
+			.channel-name 
+			{
+				color:white;
+				z-index: 2;
+			}
+		}
+	}
+
+
+#container-top-channels
+{
+
+	.list-top-channels
+	{
+		z-index: 2;
+		padding : 0;
+
+		.top-channels-spinner
+		{
+			margin-left: calc(50% - 14px);
+			margin-top: 100px;
+		}
+		.container-channel
+		{
+			overflow: visible;
+			height: 200px;
+
+			&:after
+			{
+				width: 30px;
+				height: 30px;
+				top: 15px;
+				right: 15px;
+				font-size: 18px;
+				position : absolute;
+			}
+		}
+		
+	}
 }
