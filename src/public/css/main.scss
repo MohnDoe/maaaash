@@ -28,12 +28,32 @@ header
 	position: absolute;
 }
 
-#container-join
+.mdl-layout__drawer-button
 {
-	background-color : rgb(63,81,181);
+	color : rgba(0,0,0,.5) !important;
 }
+
+.mdl-navigation
+{
+	li
+	{
+		cursor: pointer;
+	}
+
+	.mdl-navigation__link
+	{
+		&.active 
+		{
+			background-color: #e0e0e0;
+		}
+	}
+}
+
+
+
 #container-join,
 #container-battle,
+#container-sync
 {
 	height : 100%;
 	color : white;
@@ -284,7 +304,8 @@ header
 		.container-channel
 		{
 			overflow: visible;
-			height: 200px;
+			height: 250px;
+			cursor: default !important;
 
 			&:after
 			{
@@ -300,7 +321,8 @@ header
 	}
 }
 
-#container-join
+#container-join,
+#container-sync
 {
 	h1 
 	{
@@ -310,5 +332,28 @@ header
 	p
 	{
 		margin-top: 10px;
+	}
+}
+
+#container-join
+{
+	background-color : rgb(63,81,181);
+}
+
+#container-sync
+{
+	background-color : #F44336;
+	text-align:center;
+
+	.sync-channels-spinner
+	{
+		margin: 10px 0;
+		margin-left: calc(50% - 14px);
+	}
+
+	h2,
+	h6
+	{
+		width: 100%;
 	}
 }
