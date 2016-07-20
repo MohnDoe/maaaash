@@ -27,6 +27,11 @@ header
 {
 	position: absolute;
 }
+
+#container-join
+{
+	background-color : rgb(63,81,181);
+}
 #container-join,
 #container-battle,
 {
@@ -292,5 +297,18 @@ header
 			}
 		}
 		
+	}
+}
+
+#container-join
+{
+	h1 
+	{
+		margin:0;
+	}
+	
+	p
+	{
+		margin-top: 10px;
 	}
 }
