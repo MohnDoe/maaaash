@@ -7,7 +7,6 @@
 
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="propeller" content="06b82d089a6a771a929c2642da082f79" />
     <meta property="og:title" content="Maaaash" />
     <meta property="og:url" content="http://maaaash.com" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -25,17 +24,8 @@
       ga('send', 'pageview');
 
     </script>
-    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <script>
-      (adsbygoogle = window.adsbygoogle || []).push({
-        google_ad_client: "ca-pub-1584862178923141",
-        enable_page_level_ads: true
-      });
-    </script>
 </head>
 <body ng-cloak>
-    <script src="//go.mobtrks.com/notice.php?p=709414&interstitial=1"></script>
-    <script type='text/javascript' src='//go.oclasrv.com/apu.php?zoneid=709409'></script>
     <div class="mdl-layout mdl-js-layout" ng-class="{ 'mdl-layout--no-drawer-button' : !Login.isLogged()}">
 
         <header ng-include="'header.html'" class="mdl-layout__header mdl-layout__header--transparent" ng-show="Login.isLogged()"></header>
@@ -49,5 +39,29 @@
     <script src="/js/vendor.js"></script>
     <script src="/js/templates.js"></script>
     <script src="/js/app.js"></script>
+    <!-- Quantcast Tag -->
+    <script type="text/javascript">
+    var _qevents = _qevents || [];
+
+    (function() {
+    var elem = document.createElement('script');
+    elem.src = (document.location.protocol == "https:" ? "https://secure" : "http://edge") + ".quantserve.com/quant.js";
+    elem.async = true;
+    elem.type = "text/javascript";
+    var scpt = document.getElementsByTagName('script')[0];
+    scpt.parentNode.insertBefore(elem, scpt);
+    })();
+
+    _qevents.push({
+    qacct:"p-c42Bq0tVDmg9w"
+    });
+    </script>
+
+    <noscript>
+    <div style="display:none;">
+    <img src="//pixel.quantserve.com/pixel/p-c42Bq0tVDmg9w.gif" border="0" height="1" width="1" alt="Quantcast"/>
+    </div>
+    </noscript>
+    <!-- End Quantcast tag -->
 </body>
 </html>
