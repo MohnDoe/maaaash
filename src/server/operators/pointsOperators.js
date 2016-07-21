@@ -25,7 +25,7 @@ var LEVELS_NAMES = [
 ];
 
 // var NUMBER_LEVELS = LEVELS_NAMES.length;
-var NUMBER_LEVELS = 50;
+var NUMBER_LEVELS = 100;
 
 var LEVELS = [];
 
