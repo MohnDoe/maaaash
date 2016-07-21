@@ -46,6 +46,7 @@ function findOrCreateChannel(data) {
 					subscriber_count: data.subscriber_count,
 					video_count: data.video_count,
 					thumbnail_url: data.thumbnail_url,
+					banner_url: data.banner_url,
 					custom_url: data.custom_url,
 					lang: data.lang,
 					country: data.country,

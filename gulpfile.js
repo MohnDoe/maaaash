@@ -60,7 +60,7 @@ var newy = require('gulp-newy');
 
 //Node server, which in turn handles livereload + webserver
 var serverProcess;
-gulp.task('server', function() {
+gulp.task('nodemon', function() {
 
 
     //Read environment variables
@@ -85,33 +85,27 @@ gulp.task('server', function() {
 
 });
 
+gulp.task('server', function() {
+    serverProcess = spawn('node', ['src/server/server.js'], {
+        stdio: 'inherit'
+    })
+
+});
+
 //Migrations
 gulp.task('migrations', function() {
 
 
-    //Read environment variables
-    fs.readFile('.env', 'utf8', function(err, data) {
-        var env = Object.create(process.env); //Clone existing env variables
-        var lines = data.split("\n");
-        for (var i = 0; i < lines.length; i++) {
-            var line = lines[i];
-            var equalsLocation = line.indexOf('=');
-            env[line.substr(0, equalsLocation).trim()] = line.substr(equalsLocation + 1).trim();
-        }
-
-        //Todo: for heroku projects, replace this with heroku's run thingamajig. $ heroku run, i believe
-        serverProcess = spawn('node', ['src/server/migrations.js'], {
-                stdio: 'inherit',
-                env: env
-            })
-            //.on('close', function (code) {
-            //    if (code === 8 || code === 1) {
-            //        notifier("Node error " + code + ", check terminal", {title: "Error"});
-            //        beep();
-            //    }
-            //});
-    });
-
+    //Todo: for heroku projects, replace this with heroku's run thingamajig. $ heroku run, i believe
+    serverProcess = spawn('node', ['src/server/migrations.js'], {
+            stdio: 'inherit'
+        })
+        //.on('close', function (code) {
+        //    if (code === 8 || code === 1) {
+        //        notifier("Node error " + code + ", check terminal", {title: "Error"});
+        //        beep();
+        //    }
+        //});
 });
 
 // Watch for changes
@@ -312,6 +306,6 @@ gulp.task('build', function() {
 });
 
 // Default Task, run server and watch changes
-gulp.task('default', ['build', 'watch', 'server']);
+gulp.task('default', ['build', 'watch', 'nodemon']);
 gulp.task('bw', ['build', 'watch']);
-gulp.task('heroku:production', ['build', 'server']);
+gulp.task('heroku:production', ['build', 'migrations', 'server']);

@@ -62,7 +62,7 @@ function getChannelsSubedBulk(user, nextPageToken) {
 				});
 
 				Youtube.channels.list({
-					part: 'statistics, snippet', // 2 + 2
+					part: 'statistics, snippet, brandingSettings', // 2 + 2 + 2
 					id: ids
 				}, function(err, data) {
 					if (err) {
@@ -73,7 +73,8 @@ function getChannelsSubedBulk(user, nextPageToken) {
 						// console.log(channel_id);
 						var channelInfos = {
 							snippet: value['snippet'],
-							statistics: value['statistics']
+							statistics: value['statistics'],
+							brandingSettings: value['brandingSettings']
 						};
 						var channelSnippet = value['snippet'];
 						var channel = {
@@ -89,6 +90,7 @@ function getChannelsSubedBulk(user, nextPageToken) {
 							subscriber_count: channelInfos.statistics.subscriberCount,
 							hidden_subscriber_count: channelInfos.statistics.hiddenSubscriberCount,
 							video_count: channelInfos.statistics.videoCount,
+							banner_url: channelInfos.brandingSettings.image.bannerImageUrl,
 						}
 
 						channels.items.push(channel);

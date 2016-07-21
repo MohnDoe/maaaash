@@ -39,6 +39,9 @@ module.exports = DB.define('channel', {
 	thumbnail_url: {
 		type: Sequelize.STRING
 	},
+	banner_url: {
+		type: Sequelize.STRING
+	},
 	description: {
 		type: Sequelize.TEXT,
 		defaultValue: 'A Youtube channel.'

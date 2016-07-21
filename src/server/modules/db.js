@@ -15,7 +15,7 @@ module.exports = {
             },
             // logging: console.log,
             logging: false,
-            // sync: true,
+            sync: true,
             // force: true,
             define: {
                 syncOnAssociation: true,
