@@ -26,19 +26,19 @@ module.exports = {
 
         //And deserialisation
         Passport.deserializeUser(function(id, done) {
-            console.log("User check");
+            // console.log("User check");
 
             if (userCache[id]) {
-                console.log("From cache");
+                // console.log("From cache");
                 return done(null, userCache[id][0]);
             }
 
             return Models.user.findById(id).then(function(user) {
                 if (user) {
-                    console.log("From DB");
+                    // console.log("From DB");
                     userCache[user.id] = [
                         user, setTimeout(function() {
-                            console.log("Deleted cache #" + id);
+                            // console.log("Deleted cache #" + id);
                             delete userCache[user.id];
                         }, Config.auth.userCacheTime)
                     ];

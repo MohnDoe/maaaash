@@ -46,6 +46,11 @@ Promise.all(promises).then(function() {
 	var BodyParser = require('body-parser');
 	var ExpressSession = require('express-session');
 	var Compression = require('compression');
+	var raygun = require('raygun');
+
+	var raygunClient = new raygun.Client().init({
+		apiKey: Config.raygun.api_key
+	});
 
 
 	//Configure the app
@@ -54,6 +59,9 @@ Promise.all(promises).then(function() {
 	app.use(BodyParser.urlencoded({
 		extended: true
 	})); // for parsing       application/x-www-form-urlencoded
+	app.use(raygunClient.expressHandler); // raygun
+
+
 
 	console.log("Storing sessiondata in REDIS");
 	var RedisStore = require('connect-redis')(ExpressSession);
