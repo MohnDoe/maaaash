@@ -37,10 +37,10 @@ module.exports = DB.define('channel', {
 		defaultValue: 0
 	},
 	thumbnail_url: {
-		type: Sequelize.STRING
+		type: Sequelize.TEXT
 	},
 	banner_url: {
-		type: Sequelize.STRING
+		type: Sequelize.TEXT
 	},
 	description: {
 		type: Sequelize.TEXT,
