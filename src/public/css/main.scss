@@ -339,6 +339,18 @@ header
 #container-join
 {
 	background-color : rgb(63,81,181);
+
+	h1
+	{
+		margin-top: -50px;
+	}
+
+	.mp-partner
+	{
+		position: absolute;
+		bottom: 10px;
+		right:10px;
+	}
 }
 
 #container-sync
