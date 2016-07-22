@@ -495,6 +495,41 @@ header
 			width: 100%;
 			padding: 20px;
 			position: absolute;
+			z-index: 3;
+			color: white;
+
+			.channel-meta-element
+			{
+				display: inline-block;
+				margin-right: 10px;
+
+				.channel-meta-value
+				{
+					font-size: 12px;
+					position: relative;
+					line-height: 18px;
+					vertical-align: middle;
+					.channel-meta-icon
+					{
+					    font-size: 18px;
+					    line-height: 17px;
+					    vertical-align: middle;
+					}
+				}
+
+
+				.channel-meta-label
+				{
+					display: inline-block;
+					font-size : 10px;
+				    background-color: #444;
+				    text-transform: uppercase;
+				    padding: 5px;
+				    margin-top: -5px;
+				    line-height: 1em;
+				    color: #ccc;
+				}
+			}
 		}
 	}
 }

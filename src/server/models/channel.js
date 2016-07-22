@@ -87,7 +87,7 @@ module.exports = DB.define('channel', {
 					'deleted_at',
 					'updated_at',
 					'created_at',
-					'elo_points',
+					// 'elo_points',
 					'is_verified_youtube',
 					'published_at',
 					'lang',

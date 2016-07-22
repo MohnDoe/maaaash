@@ -27,6 +27,7 @@
 		mdl-card
 		mdl-shadow--4dp
 
+		mdl-cell--4-col-desktop
 		mdl-cell--4-col-table
 		mdl-cell--4-col-phone
 		"
@@ -46,17 +47,26 @@
 	      </span>
 	      <div class="channel-meta">
 	      	<div class="channel-meta-element">
-	      		<span class="channel-meta-value">{{c.subscriber_count | megaNumber}}</span>
+	      		<span class="channel-meta-value">
+	      		<i class="channel-meta-icon material-icons">person</i>
+	      		{{c.subscriber_count | megaNumber}}
+	      		</span>
 	      		<br>
 	      		<span class="channel-meta-label">Subscribers</span>
 	      	</div>
 	      	<div class="channel-meta-element">
-	      		<span class="channel-meta-value">{{c.view_count | megaNumber}}</span>
+	      		<span class="channel-meta-value">
+	      		<i class="channel-meta-icon material-icons">visibility</i>
+	      		{{c.view_count | megaNumber}}
+	      		</span>
 	      		<br>
 	      		<span class="channel-meta-label">Views</span>
 	      	</div>
 	      	<div class="channel-meta-element">
-	      		<span class="channel-meta-value">{{c.elo_points | number}}</span>
+	      		<span class="channel-meta-value">
+	      		<i class="channel-meta-icon material-icons">trending_up</i>
+	      		{{c.elo_points | number}}
+	      		</span>
 	      		<br>
 	      		<span class="channel-meta-label">ELO Points</span>
 	      	</div>
