@@ -203,7 +203,8 @@ header
 }
 
 #container-leaderboard,
-#container-top-channels
+#container-top-channels,
+#container-top-channels-v2
 {
 	height : auto;
 	color : white;
@@ -365,4 +366,135 @@ header
 	top:20px;
 	left:0; right:0;
 	height : 70px;
+}
+
+#container-top-channels-v2
+{
+
+	.container-header
+	{
+		text-align: center;
+		background-color:transparent;
+		color: #222;
+		z-index: 2;
+		margin-bottom: -70px;
+		padding-bottom: 70px;
+	}
+	.channel-card 
+	{
+		height: 600px;
+		border-radius: 0;
+		color: white;
+
+		&:before
+		{
+			content: "";
+		    position: absolute;
+		    z-index: 3;
+		    top: 0;
+		    left: 0;
+		    width: 100%;
+		    height: 100%;
+	        background: -owg-linear-gradient(to bottom,transparent 10%,#111 56%);
+		    background: -webkit-linear-gradient(to bottom,transparent 10%,#111 56%);
+		    background: -moz-linear-gradient(to bottom,transparent 10%,#111 56%);
+		    background: -o-linear-gradient(to bottom,transparent 10%,#111 56%);
+		    -pie-background: -pie-linear-gradient(to bottom,transparent 10%,#111 56%);
+		    background: linear-gradient(to bottom,transparent 10%,#111 56%);
+		}
+
+		.channel-card-rank
+		{
+			position: absolute;
+			top: 0;
+			left: 0;
+			color: #fff;
+			font-size: 10px;
+			z-index: 5;
+			width: 1.3em;
+			text-align: center;
+			// padding-top: .2em;
+
+			&:after
+			{
+				position: absolute;
+			    top: 0;
+			    left: 0;
+				width: 0;
+			    height: 0;
+			    border-top: 2.6em solid transparent;
+			    border-bottom: 2.6em solid transparent;
+			    border-left: 2.6em solid transparent;
+			    border-right: 2.6em solid transparent;
+			    border-left-color: #000;
+			    content: "";
+			    border-top-width: 0;
+			}
+
+			.channel-card-rank-count
+			{
+				position: relative;
+			    z-index: 1;
+			    left: 2px;
+			    top: -2px;
+			}
+		}
+
+		.channel-card-image
+		{
+			position: absolute;
+			z-index: 2;
+			display: block;
+			width: 100%;
+			height: 60%;
+			background-size: cover;
+			background-position: center center;
+		}
+
+		.channel-card-primary-info
+		{
+			position: absolute;
+		    bottom: 20px;
+		    display: block;
+		    width: 100%;
+		    padding: 20px;
+		    z-index: 4;
+		    top: 60%;
+
+		    .channel-card-title
+		    {
+		    	font-size: 24px;
+		    	font-weight: 100;
+		    	color : white;
+		    }
+
+		    .channel-card-description-wrapper
+		    {
+		    	max-height: 400px;
+				margin-top: .7em;
+				margin-bottom: 1em;
+
+				.channel-card-description
+				{	
+					color: rgba(255,255,255,.5);
+					font-weight:400;
+					display: -webkit-box;
+				    -webkit-line-clamp: 3;
+				    -webkit-box-orient: vertical;
+				    max-height: 4.5em;
+				    overflow: hidden;
+				    line-height: 140%;
+				    margin-bottom: 0;
+				}
+		    }
+		}
+
+		.channel-meta
+		{
+			bottom: 0px;
+			width: 100%;
+			padding: 20px;
+			position: absolute;
+		}
+	}
 }

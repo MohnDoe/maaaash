@@ -51,7 +51,7 @@ angular.module('App', ['templates', 'ui.router', 'ngAnimate', 'ngRoute', 'angula
             })
             .state('top', {
                 url: '/top',
-                templateUrl: 'top/index.html',
+                templateUrl: 'top/v2.html',
                 controller: 'TopCtrl as Top',
                 data: {
                     ensureAuthenticate: true

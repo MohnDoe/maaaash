@@ -1,0 +1,66 @@
+<div id="container-top-channels-v2" class="mdl-grid mdl-grid--no-spacing">
+	<div class="container-header mdl-cell mdl-cell--12-col">
+		<h2 class="big-title">Top 10</h2>
+		<h6 class="subtitle">Based on xxxx votes</h6>
+	</div>
+	<ul class="
+	list-top-channels
+	
+	mdl-cell
+	mdl-cell--10-col-desktop
+	mdl-cell--1-offset-desktop
+
+	mdl-cell--8-col-tablet
+	mdl-cell--0-offset-tablet
+
+	mdl-cell--4-col-phone
+	mdl-cell--0-offset-phone
+	mdl-cell--stretch
+
+	mdl-grid
+	">
+		<div class="mdl-spinner mdl-js-spinner is-active top-channels-spinner" ng-show="loading"></div>
+		<li 
+		class="
+		channel-card
+		mdl-cell
+		mdl-card
+		mdl-shadow--4dp
+
+		mdl-cell--4-col-table
+		mdl-cell--4-col-phone
+		"
+
+		ng-repeat='c in channels'
+		ng-show = "!loading"
+		>
+	      <div class="channel-card-rank">
+	      	<span class="channel-card-rank-count">{{$index+1}}</span>
+	      </div>
+	      <div class="channel-card-image" style="background-image:url('{{c.thumbnail_url}}')"></div>
+	      <span class="channel-card-primary-info">
+	      	<span class="channel-card-title">{{c.name}}</span>
+	      	<div class="channel-card-description-wrapper">
+	      		<p class="channel-card-description">{{c.description}}</p>
+	      	</div>
+	      </span>
+	      <div class="channel-meta">
+	      	<div class="channel-meta-element">
+	      		<span class="channel-meta-value">{{c.subscriber_count | megaNumber}}</span>
+	      		<br>
+	      		<span class="channel-meta-label">Subscribers</span>
+	      	</div>
+	      	<div class="channel-meta-element">
+	      		<span class="channel-meta-value">{{c.view_count | megaNumber}}</span>
+	      		<br>
+	      		<span class="channel-meta-label">Views</span>
+	      	</div>
+	      	<div class="channel-meta-element">
+	      		<span class="channel-meta-value">{{c.elo_points | number}}</span>
+	      		<br>
+	      		<span class="channel-meta-label">ELO Points</span>
+	      	</div>
+	      </div>
+	    </li>
+	</ul>
+</div>
